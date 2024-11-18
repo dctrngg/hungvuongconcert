@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="test.css">
+    <style>
+        /* Đảm bảo nav-list ẩn đi mặc định */
+        .nav-list {
+            display: none;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div id="noscroll-trigger" data-w-id="d9e4efb3-7cea-2c7f-35ef-4d574eff18c6" class="hamburger-wrapper">
+        <div class="ham _1"
+            style="background-color: rgb(255, 69, 28); transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+        </div>
+        <div class="ham _2"
+            style="background-color: rgb(255, 69, 28); transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+        </div>
+    </div>
+
+    <div class="nav-list"
+        style="transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;">
+        <div class="section orange">
+            <div class="container navlist">
+                
+                <div class="wrapper navlist"
+                    style="transform: translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;">
+                    <!-- Nút Close -->
+                    <div class="nav-link-wrapper">
+                        <a href="/" class="nav-link w-inline-block">
+                            <div>BACK</div>
+                        </a>
+                        <a href="/lineup" class="nav-link w-inline-block">
+                            <div>LINEUP</div>
+                        </a>
+                        <a href="/location" class="nav-link w-inline-block">
+                            <div>LOCATION</div>
+                        </a>
+                        <a href="/about" class="nav-link w-inline-block">
+                            <div>ABOUT</div>
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script để điều khiển ẩn/hiện nav-list -->
+    <script>
+        // Khi người dùng nhấn vào nút hamburger để mở menu
+        document.getElementById('noscroll-trigger').addEventListener('click', function () {
+            var navList = document.querySelector('.nav-list');
+
+            // Kiểm tra xem nav-list hiện hay không, nếu không thì hiển thị, nếu đã hiển thị thì ẩn
+            if (navList.style.display === 'none' || navList.style.display === '') {
+                navList.style.display = 'block';
+            } else {
+                navList.style.display = 'none';
+            }
+        });
+
+        // Khi người dùng nhấn vào nút Close để đóng menu
+        document.getElementById('close-btn').addEventListener('click', function () {
+            var navList = document.querySelector('.nav-list');
+            navList.style.display = 'none'; // Ẩn nav-list
+        });
+    </script>
+</body>
+
+</html>
