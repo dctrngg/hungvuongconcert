@@ -23,7 +23,7 @@
         </div>
     
         <div class="form-section">
-            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbzRjwGtRtJjCA2ckO7YZLORTM0tvZSWPpKqpbPzBVoDVg4o-zhOB7IJ_vTVP2GhQG6D/exec">
+            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycby8saBZC2oCe2PNfNv_NgaUECDOs0L_tv2uj4ix51ay-qyM9wBKLuDHjrxAOc8M-Jgh/exec">
                 <h3>Personal Information</h3>
                 <label for="customer" class="form-label">Họ và Tên</label>
                 <div class="form-group">
@@ -38,11 +38,6 @@
                 <label for="phone" class="form-label">Số điện thoại</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="phone" name="Phone" placeholder="" required />
-                </div>
-
-                <label for="address" class="form-label">Địa chỉ</label>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="address" name="Address" placeholder="" required />
                 </div>
 
                 <label for="quantity" class="form-label">Số lượng vé</label>
@@ -67,86 +62,95 @@
         const totalDueElement = document.getElementById("total-due");
         const subtotalElement = document.getElementById("subtotal");
         const quantityDisplayElement = document.getElementById("quantity-display");
-
+    
         const ticketPrice = 250.000;
         const vatRate = 0.27;
-
+    
         function updateTotalDue() {
             const quantity = parseInt(quantityInput.value);
             const subtotal = ticketPrice * quantity;
             const totalDue = subtotal;
-
+    
             // Update the displayed values
             subtotalElement.textContent = `${subtotal.toFixed(3)} VNĐ`;
             totalDueElement.textContent = `${totalDue.toFixed(3)} VNĐ`;
             quantityDisplayElement.textContent = quantity; // Update quantity display
         }
-
+    
         // Listen for quantity changes
         quantityInput.addEventListener("input", updateTotalDue);
-
+    
         // Initialize the total due on page load
         updateTotalDue();
-
+    
         document.getElementById('form').onsubmit = async function(event) {
             event.preventDefault(); // Prevent default form submission
     
             const customer = document.getElementById('customer').value;
             const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
             const email = document.getElementById('email').value;
             const quantity = parseInt(document.getElementById('quantity').value, 10);
             const note = document.getElementById('note') ? document.getElementById('note').value : '';
             const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
             const imgbbApiKey = "720f1453f14c2cc6ba0b68214720705f";
             const url = this.action;
-
+    
+            // Validation for phone number (must be 10 digits)
+            const phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("Số điện thoại bao gồm 10 ký tự");
+                return;
+            }
+    
+            // Validation for quantity (must be between 1 and 5)
+            if (quantity <= 0 || quantity > 5) {
+                alert("Bạn chỉ được mua tôi đa 5 vé.");
+                return;
+            }
+    
             // Calculate total price
             const totalPrice = ticketPrice * quantity;
-            const confirmSubmission = confirm(`Total Price: ${totalPrice} VNĐ. Do you want to proceed?`);
+            const confirmSubmission = confirm(`Bạn xác nhận thanh toán: ${totalPrice.toFixed(3)} VNĐ. Bạn có muốn tiếp tục ?`);
             if (!confirmSubmission) return; // Exit if user cancels
-
+    
             if (imageFile) {
                 const formData = new FormData();
                 formData.append("image", imageFile);
-
+                formData.append("Customer", customer);
+                formData.append("Phone", phone);
+                formData.append("Email", email);
+                formData.append("Quantity", quantity);
+                formData.append("Note", note);
+    
                 try {
                     const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
                         method: "POST",
                         body: formData
                     });
-
+    
                     const imgbbData = await imgbbResponse.json();
-
+    
                     if (imgbbData.success) {
                         const imageUrl = imgbbData.data.url;
-
-                        // Prepare data for each ticket
-                        for (let i = 0; i < quantity; i++) {
-                            const sheetData = new FormData();
-                            sheetData.append("Customer", customer);
-                            sheetData.append("Phone", phone);
-                            sheetData.append("Address", address);
-                            sheetData.append("Quantity", quantity);
-                            sheetData.append("Note", note);
-                            sheetData.append("Image", imageUrl);
-
-                            // Send data to Google Sheets
-                            await fetch(url, {
-                                method: 'POST',
-                                body: sheetData
-                            })
-                            .then(response => response.json())
-                            .then(result => {
-                                console.log(result);
-                                alert(`Data for ticket ${i + 1} submitted successfully!`);
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('Error submitting data for ticket ' + (i + 1) + '.');
-                            });
-                        }
-
+    
+                        // Append the image URL to the form data
+                        formData.append("Image", imageUrl);
+    
+                        // Send the data to Google Sheets as one form submission
+                        await fetch(url, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log(result);
+                            alert("Bạn đã đặt vé thành công!");
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error submitting data.');
+                        });
+    
                         document.getElementById('form').reset(); // Reset form after submission
                     } else {
                         alert("Failed to upload image to imgbb.");
@@ -160,6 +164,7 @@
             }
         };
     </script>
+    
 </body>
 
 </html>
