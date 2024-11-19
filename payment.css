@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    min-height: 100vh; /* Allow the body to extend beyond the viewport */
+}
+
+.container {
+    margin-top: 10vh;
+    display: flex;
+    width: 70vw;
+    height: 80vh;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-direction: row;
+   
+}
+
+.data-display {
+    background-color: #FF4500;
+    color: white;
+    width: 50%;
+    padding: 30px;
+    margin-left: auto;
+}
+
+.data-display h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.amount {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.details {
+    margin-top: 30px;
+}
+
+.details p {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.details .promo-btn {
+    background-color: #FFF;
+    color: #FF4500;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.total {
+    font-weight: bold;
+}
+
+.form-label {
+    margin-bottom: 2rem;
+}
+
+.form-group{
+    margin-top: 0.75rem;
+}
+.form-control {
+    width: 80%; 
+    max-width: 400px; 
+    padding: 10px; 
+    font-size: 16px;  
+}
+
+.form-section {
+    
+    padding-left: 3rem;
+    width: 50%;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+.form-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.form-section input, 
+.form-section select {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-shadow: 10px solid black;
+}
+
+.form-section input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+.form-section label {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.pay-btn {
+    background-color: #FF4500;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 80%;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px; /* Reduce padding for mobile */
+    }
+
+    .container {
+        margin-top: auto;
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        width: 100%; /* Full width */
+        height: auto; /* Allow height to adjust */
+        padding: 10px;
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    .data-display {
+        width: 100%; /* Take full width on mobile */
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .form-section {
+        padding-left: 0;
+        width: 100%; /* Take full width */
+        padding-top: 10px;
+    }
+
+    .form-section input,
+    .form-section select {
+        width: 100%; /* Ensure inputs take full width */
+        font-size: 14px; /* Adjust font size for mobile */
+    }
+
+    .pay-btn {
+        width: 100%; /* Make the button full width */
+        padding: 12px;
+    }
+
+    .details p {
+        flex-direction: column; /* Stack details vertically on mobile */
+        align-items: flex-start;
+        margin: 10px 0;
+    }
+
+    .details .promo-btn {
+        width: 100%; /* Make the promo button full width */
+        margin-top: 10px;
+    }
+}

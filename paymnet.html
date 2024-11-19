@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="payment.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="data-display">
+            <h2>Hung Vuong Concert: UNFOLD</h2>
+            <p class="amount">250.000 VNĐ</p>
+            <div class="details">
+                <p><strong>Online Ticket</strong><br>Regular ticket</p>
+                <p>Giá vé <span id="subtotal">250.000 VNĐ</span></p>
+                <p>Số lượng <span id="quantity-display">1</span></p> <!-- Changed this element to display quantity -->
+                <hr>
+                <p class="total">Total due <span id="total-due">€74.99</span></p>
+            </div>
+        </div>
+    
+        <div class="form-section">
+            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbzRjwGtRtJjCA2ckO7YZLORTM0tvZSWPpKqpbPzBVoDVg4o-zhOB7IJ_vTVP2GhQG6D/exec">
+                <h3>Personal Information</h3>
+                <label for="customer" class="form-label">Họ và Tên</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="customer" name="Customer" placeholder="" required />
+                </div>
+
+                <label for="email" class="form-label">Email</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="email" name="Email" placeholder="" required />
+                </div>
+
+                <label for="phone" class="form-label">Số điện thoại</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="phone" name="Phone" placeholder="" required />
+                </div>
+
+                <label for="address" class="form-label">Địa chỉ</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="address" name="Address" placeholder="" required />
+                </div>
+
+                <label for="quantity" class="form-label">Số lượng vé</label>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="quantity" name="Quantity" value="1" required />
+                </div>
+                <label>
+                    <input type="checkbox"> I agree to POV Budapest's Terms of Service and Privacy Policy
+                </label>
+
+                <div class="form-group">
+                    <input type="file" class="form-control" id="image" name="Image" accept="image/*" required />
+                </div>
+
+                <button type="submit" class="pay-btn">Pay</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const quantityInput = document.getElementById("quantity");
+        const totalDueElement = document.getElementById("total-due");
+        const subtotalElement = document.getElementById("subtotal");
+        const quantityDisplayElement = document.getElementById("quantity-display");
+
+        const ticketPrice = 250.000;
+        const vatRate = 0.27;
+
+        function updateTotalDue() {
+            const quantity = parseInt(quantityInput.value);
+            const subtotal = ticketPrice * quantity;
+            const totalDue = subtotal;
+
+            // Update the displayed values
+            subtotalElement.textContent = `${subtotal.toFixed(3)} VNĐ`;
+            totalDueElement.textContent = `${totalDue.toFixed(3)} VNĐ`;
+            quantityDisplayElement.textContent = quantity; // Update quantity display
+        }
+
+        // Listen for quantity changes
+        quantityInput.addEventListener("input", updateTotalDue);
+
+        // Initialize the total due on page load
+        updateTotalDue();
+
+        document.getElementById('form').onsubmit = async function(event) {
+            event.preventDefault(); // Prevent default form submission
+    
+            const customer = document.getElementById('customer').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const email = document.getElementById('email').value;
+            const quantity = parseInt(document.getElementById('quantity').value, 10);
+            const note = document.getElementById('note') ? document.getElementById('note').value : '';
+            const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
+            const imgbbApiKey = "720f1453f14c2cc6ba0b68214720705f";
+            const url = this.action;
+
+            // Calculate total price
+            const totalPrice = ticketPrice * quantity;
+            const confirmSubmission = confirm(`Total Price: ${totalPrice} VNĐ. Do you want to proceed?`);
+            if (!confirmSubmission) return; // Exit if user cancels
+
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("image", imageFile);
+
+                try {
+                    const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    const imgbbData = await imgbbResponse.json();
+
+                    if (imgbbData.success) {
+                        const imageUrl = imgbbData.data.url;
+
+                        // Prepare data for each ticket
+                        for (let i = 0; i < quantity; i++) {
+                            const sheetData = new FormData();
+                            sheetData.append("Customer", customer);
+                            sheetData.append("Phone", phone);
+                            sheetData.append("Address", address);
+                            sheetData.append("Quantity", quantity);
+                            sheetData.append("Note", note);
+                            sheetData.append("Image", imageUrl);
+
+                            // Send data to Google Sheets
+                            await fetch(url, {
+                                method: 'POST',
+                                body: sheetData
+                            })
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result);
+                                alert(`Data for ticket ${i + 1} submitted successfully!`);
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Error submitting data for ticket ' + (i + 1) + '.');
+                            });
+                        }
+
+                        document.getElementById('form').reset(); // Reset form after submission
+                    } else {
+                        alert("Failed to upload image to imgbb.");
+                    }
+                } catch (error) {
+                    console.error("Error uploading image:", error);
+                    alert("Error uploading image to imgbb.");
+                }
+            } else {
+                alert("Please select an image to upload.");
+            }
+        };
+    </script>
+</body>
+
+</html>

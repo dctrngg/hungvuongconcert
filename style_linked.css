@@ -460,7 +460,7 @@ body {
 .many-more-div {
   padding-bottom: var(--padding--64);
   text-align: center;
-  height: 121px;
+ 
 }
 
 .ticket-lottie-wrapper {
@@ -541,6 +541,19 @@ body {
   .talent .section.beige.hero, .talent .section.orange.hero {
     min-height: auto;
   }
+.wrapper.home-speaker-wrapper{
+   padding-top: 0px;
+   padding-bottom: 0px;
+  }
+
+.wrapper no-padding{
+  padding-bottom: 0px;
+}
+  .many-more-div{
+    padding-bottom: 0px;
+  }
+
+ 
 
   .talent .section.mob-nop-p {
     padding-bottom: 64px;
@@ -983,6 +996,7 @@ body {
   .ticket-item {
     padding: 2rem; /* Further reduce padding */
     width: 100%; /* Full-width */
+    margin: 5rem;
   }
 
   .ticket-title {
@@ -1076,6 +1090,50 @@ body {
 }
 .faq-arrow-div.rotate.active {
   transform: rotate(180deg);
+}
+
+/* CSS dành cho mobile view */
+@media (max-width: 768px) {
+  .bubble-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+
+  .top-bubble, .bottom-bubble {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* Khoảng cách giữa các ảnh */
+  }
+
+  .top-left-bubble, .top-right-bubble {
+      display: flex;
+      justify-content: center;
+  }
+
+  .bubble-img {
+      max-width: 100%;
+      height: auto;
+      margin: 10px auto;
+  }
+
+  .heading-div {
+      text-align: center;
+  }
+
+  .event-text {
+      padding: 10px;
+      text-align: center;
+  }
+  .moreinfo{
+    display: none;
+  }
+
+  .faq-wrapper{
+    margin-left: 4rem;
+    margin-right: 4rem;
+  }
 }
 
 
@@ -1262,7 +1320,7 @@ img {
 }
 
 .section {
-  background-color: var(--text--white);
+  /* background-color: var(--text--white); */
   width: 100%;
   position: relative;
 }
