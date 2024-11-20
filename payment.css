@@ -6,16 +6,17 @@
 }
 
 body {
-    
     display: flex;
     justify-content: center;
+    align-items: center; /* Center content vertically */
     padding: 20px;
     overflow-x: hidden; /* Prevent horizontal overflow */
     min-height: 100vh; /* Allow the body to extend beyond the viewport */
+    height: 100%; /* Ensure body takes full height */
 }
 
 .container {
-    margin-top: 10vh;
+    margin-top: 5vh;
     display: flex;
     width: 70vw;
     height: 80vh;
@@ -23,7 +24,7 @@ body {
     border-radius: 20px;
     overflow: hidden;
     flex-direction: row;
-   
+    justify-content: center; /* Center the container contents horizontally */
 }
 
 .data-display {
@@ -71,33 +72,31 @@ body {
     margin-bottom: 2rem;
 }
 
-.form-group{
+.form-group {
     margin-top: 0.75rem;
 }
+
 .form-control {
-    width: 80%; 
-    max-width: 400px; 
-    padding: 10px; 
-    font-size: 16px;  
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
 }
 
 .form-section {
-    
     padding-left: 3rem;
     width: 50%;
     padding-top: 20px;
     display: flex;
     flex-direction: column;
-    
 }
-
 
 .form-section h3 {
     font-size: 18px;
     margin-bottom: 10px;
 }
 
-.form-section input, 
+.form-section input,
 .form-section select {
     margin-bottom: 15px;
     padding: 10px;
@@ -132,11 +131,13 @@ body {
 /* Mobile adjustments */
 @media screen and (max-width: 768px) {
     body {
-        padding: 10px; /* Reduce padding for mobile */
+        padding: 10px;
+        display: block; /* Allow full width on mobile */
+        align-items: unset;
     }
 
     .container {
-        margin-top: auto;
+        margin-top: 0;
         flex-direction: column; /* Stack items vertically on smaller screens */
         width: 100%; /* Full width */
         height: auto; /* Allow height to adjust */
@@ -159,22 +160,9 @@ body {
     .form-section input,
     .form-section select {
         width: 100%; /* Ensure inputs take full width */
-        font-size: 14px; /* Adjust font size for mobile */
     }
 
     .pay-btn {
-        width: 100%; /* Make the button full width */
-        padding: 12px;
-    }
-
-    .details p {
-        flex-direction: column; /* Stack details vertically on mobile */
-        align-items: flex-start;
-        margin: 10px 0;
-    }
-
-    .details .promo-btn {
-        width: 100%; /* Make the promo button full width */
-        margin-top: 10px;
+        width: 100%; /* Make pay button full width on mobile */
     }
 }

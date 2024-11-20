@@ -18,21 +18,16 @@
                 <p>Giá vé <span id="subtotal">250.000 VNĐ</span></p>
                 <p>Số lượng <span id="quantity-display">1</span></p> <!-- Changed this element to display quantity -->
                 <hr>
-                <p class="total">Total due <span id="total-due">€74.99</span></p>
+                <p class="total">Total due <span id="total-due">250.000 VNĐ</span></p>
             </div>
         </div>
     
         <div class="form-section">
-            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycby8saBZC2oCe2PNfNv_NgaUECDOs0L_tv2uj4ix51ay-qyM9wBKLuDHjrxAOc8M-Jgh/exec">
+            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbx5sTiwaxseR9Ge30Do0Ui9zIPD5hSuSa2UPGjVk3DYsUGdLyxllPtrr3Slaqr9SHDZ/exec">
                 <h3>Personal Information</h3>
                 <label for="customer" class="form-label">Họ và Tên</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="customer" name="Customer" placeholder="" required />
-                </div>
-
-                <label for="email" class="form-label">Email</label>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="email" name="Email" placeholder="" required />
                 </div>
 
                 <label for="phone" class="form-label">Số điện thoại</label>
@@ -40,19 +35,41 @@
                     <input type="text" class="form-control" id="phone" name="Phone" placeholder="" required />
                 </div>
 
+                <label for="email" class="form-label">Email</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="email" name="Email" placeholder="" required />
+                </div>
+
+                <label for="address" class="form-label">Địa chỉ</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="address" name="Address" placeholder="" required />
+                </div>
+
                 <label for="quantity" class="form-label">Số lượng vé</label>
                 <div class="form-group">
                     <input type="number" class="form-control" id="quantity" name="Quantity" value="1" required />
                 </div>
-                <label>
-                    <input type="checkbox"> Tôi đồng ý chia sẻ thông tin cá nhân cho Hùng Vương Concert: UNFOLD
-                </label>
 
+                <label for="school" class="form-label">Trường bạn đang theo học</label>
                 <div class="form-group">
-                    <input type="file" class="form-control" id="image" name="Image" accept="image/*" required />
+                    <input type="text" class="form-control" id="school" name="School" placeholder="" required />
                 </div>
 
-                <button type="submit" class="pay-btn">Pay</button>
+                <label for="note" class="form-label">Hãy để lại lời nhắn cho chúng mình nhé !!</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="note" name="Note" placeholder="" required />
+                </div>
+
+
+                <label>
+                    <input type="checkbox" required> Tôi đồng ý chia sẻ thông tin cá nhân cho Hùng Vương Concert: UNFOLD
+                    
+                </label>
+
+
+
+                <button type="submit" class="pay-btn">Mua vé</button>
+                <div style="color: red; margin-top: 10px;"><label for="note" class="form-label">* Quá trình hoàn tất có thể sẽ mất chút thời gian</label></div>
             </form>
         </div>
     </div>
@@ -62,109 +79,81 @@
         const totalDueElement = document.getElementById("total-due");
         const subtotalElement = document.getElementById("subtotal");
         const quantityDisplayElement = document.getElementById("quantity-display");
-    
-        const ticketPrice = 250.000;
-        const vatRate = 0.27;
-    
+
+        const ticketPrice = 250000; // Giá vé
+
         function updateTotalDue() {
             const quantity = parseInt(quantityInput.value);
             const subtotal = ticketPrice * quantity;
             const totalDue = subtotal;
-    
+
             // Update the displayed values
-            subtotalElement.textContent = `${subtotal.toFixed(3)} VNĐ`;
-            totalDueElement.textContent = `${totalDue.toFixed(3)} VNĐ`;
+            subtotalElement.textContent = `${subtotal.toLocaleString()} VNĐ`;
+            totalDueElement.textContent = `${totalDue.toLocaleString()} VNĐ`;
             quantityDisplayElement.textContent = quantity; // Update quantity display
         }
-    
+
         // Listen for quantity changes
         quantityInput.addEventListener("input", updateTotalDue);
-    
+
         // Initialize the total due on page load
         updateTotalDue();
-    
+
         document.getElementById('form').onsubmit = async function(event) {
             event.preventDefault(); // Prevent default form submission
-    
+
             const customer = document.getElementById('customer').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const school = document.getElementById('school').value;
             const quantity = parseInt(document.getElementById('quantity').value, 10);
-            const note = document.getElementById('note') ? document.getElementById('note').value : '';
-            const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
-            const imgbbApiKey = "720f1453f14c2cc6ba0b68214720705f";
+            const note = document.getElementById('note').value;
             const url = this.action;
-    
+
             // Validation for phone number (must be 10 digits)
             const phoneRegex = /^[0-9]{10}$/;
             if (!phoneRegex.test(phone)) {
                 alert("Số điện thoại bao gồm 10 ký tự");
                 return;
             }
-    
+
             // Validation for quantity (must be between 1 and 5)
             if (quantity <= 0 || quantity > 5) {
-                alert("Bạn chỉ được mua tôi đa 5 vé.");
+                alert("Bạn chỉ được mua tối đa 5 vé.");
                 return;
             }
-    
+
             // Calculate total price
             const totalPrice = ticketPrice * quantity;
-            const confirmSubmission = confirm(`Bạn xác nhận thanh toán: ${totalPrice.toFixed(3)} VNĐ. Bạn có muốn tiếp tục ?`);
+            const confirmSubmission = confirm(`Bạn xác nhận thanh toán: ${totalPrice.toLocaleString()} VNĐ. Bạn có muốn tiếp tục ?`);
             if (!confirmSubmission) return; // Exit if user cancels
-    
-            if (imageFile) {
-                const formData = new FormData();
-                formData.append("image", imageFile);
-                formData.append("Customer", customer);
-                formData.append("Phone", phone);
-                formData.append("Email", email);
-                formData.append("Quantity", quantity);
-                formData.append("Note", note);
-    
-                try {
-                    const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
-                        method: "POST",
-                        body: formData
-                    });
-    
-                    const imgbbData = await imgbbResponse.json();
-    
-                    if (imgbbData.success) {
-                        const imageUrl = imgbbData.data.url;
-    
-                        // Append the image URL to the form data
-                        formData.append("Image", imageUrl);
-    
-                        // Send the data to Google Sheets as one form submission
-                        await fetch(url, {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(result => {
-                            console.log(result);
-                            alert("Bạn đã đặt vé thành công!");
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Error submitting data.');
-                        });
-    
-                        document.getElementById('form').reset(); // Reset form after submission
-                    } else {
-                        alert("Failed to upload image to imgbb.");
-                    }
-                } catch (error) {
-                    console.error("Error uploading image:", error);
-                    alert("Error uploading image to imgbb.");
-                }
-            } else {
-                alert("Please select an image to upload.");
+
+            // Send the data to Google Sheets as one form submission
+            const formData = new FormData();
+            formData.append("Customer", customer);
+            formData.append("Phone", phone);
+            formData.append("Email", email);
+            formData.append("Address", address);
+            formData.append("Quantity", quantity);
+            formData.append("School", school);
+            formData.append("Note", note);
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                console.log(result);
+                alert("Bạn đã đặt vé thành công!");
+                document.getElementById('form').reset(); // Reset form after submission
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error submitting data.');
             }
         };
     </script>
-    
 </body>
 
 </html>
