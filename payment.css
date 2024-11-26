@@ -1,3 +1,4 @@
+/* Global styles */
 * {
     box-sizing: border-box;
     font-family: Arial, sans-serif;
@@ -20,19 +21,31 @@ body {
     background-color: #f9f9f9;
 }
 
+/* Label cho checkbox */
+.checkbox-label {
+    display: flex;
+    align-items: center;
+}
+.checkbox-label input[type="checkbox"] {
+    margin-right: 8px; /* Tăng khoảng cách giữa checkbox và chữ */
+}
+
+/* Container chính */
 .container {
     margin-top: 5vh;
     display: flex;
     flex-direction: row;
-    width: 70vw;
+    width: 80vw; /* Tăng chiều rộng để hiển thị rõ hơn */
     height: auto;
     background: white;
     border-radius: 20px;
-    overflow-y: auto; /* Cho phép cuộn dọc toàn bộ container */
+    overflow-y: auto; /* Cho phép cuộn dọc nếu cần */
     overflow-x: hidden; /* Ngăn cuộn ngang */
-    justify-content: center; /* Căn giữa nội dung con theo chiều ngang */
+    justify-content: space-between; /* Phân chia đều hai phần */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng cho container */
 }
 
+/* Phần hiển thị dữ liệu */
 .data-display,
 .form-section {
     width: 50%; /* Mỗi phần chiếm 50% chiều rộng */
@@ -42,6 +55,7 @@ body {
 .data-display {
     background-color: #FF4500;
     color: white;
+    border-radius: 20px 0 0 20px; /* Bo tròn góc bên trái */
 }
 
 .data-display h2 {
@@ -68,11 +82,14 @@ body {
     font-weight: bold;
 }
 
+/* Phần form */
 .form-section {
-    padding-left: 3rem;
+    padding-left: 2rem;
     padding-top: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: center; /* Căn giữa nội dung trong form */
+    border-radius: 0 20px 20px 0; /* Bo tròn góc bên phải */
 }
 
 .form-section h3 {
@@ -83,13 +100,14 @@ body {
 .form-section input,
 .form-section select {
     margin-bottom: 15px;
-    padding: 10px;
+    padding: 12px; /* Tăng padding để dễ bấm hơn */
     font-size: 16px;
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 40px;
 }
 
+/* Nút thanh toán */
 .pay-btn {
     background-color: #FF4500;
     color: white;
@@ -100,6 +118,11 @@ body {
     cursor: pointer;
     width: 80%;
     align-self: center;
+    transition: background-color 0.3s;
+}
+
+.pay-btn:hover {
+    background-color: #e63900; /* Thay đổi màu khi hover */
 }
 
 /* Điều chỉnh cho thiết bị di động */
@@ -115,17 +138,20 @@ body {
         flex-direction: column; /* Sắp xếp theo chiều dọc */
         width: 100%; /* Chiều rộng đầy đủ */
         height: auto; /* Để chiều cao tự điều chỉnh */
+        border-radius: 20px; /* Bo tròn cả container */
     }
 
     .data-display {
         width: 100%;
         padding: 20px;
+        border-radius: 20px 20px 0 0; /* Bo tròn phần trên */
     }
 
     .form-section {
         padding-left: 0;
         width: 100%;
         padding-top: 10px;
+        border-radius: 0 0 20px 20px; /* Bo tròn phần dưới */
     }
 
     .pay-btn {
