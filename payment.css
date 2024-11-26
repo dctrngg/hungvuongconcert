@@ -5,34 +5,43 @@
     padding: 0;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* Ngăn tràn ngang */
+}
+
 body {
     display: flex;
     justify-content: center;
-    align-items: center; /* Center content vertically */
+    align-items: center; /* Căn giữa nội dung theo chiều dọc */
     padding: 20px;
-    overflow-x: hidden; /* Prevent horizontal overflow */
-    min-height: 100vh; /* Allow the body to extend beyond the viewport */
-    height: 100%; /* Ensure body takes full height */
+    overflow-y: auto; /* Cho phép cuộn dọc */
+    background-color: #f9f9f9;
 }
 
 .container {
     margin-top: 5vh;
     display: flex;
+    flex-direction: row;
     width: 70vw;
     height: 80vh;
     background: white;
     border-radius: 20px;
-    overflow: hidden;
-    flex-direction: row;
-    justify-content: center; /* Center the container contents horizontally */
+    overflow-y: auto; /* Cho phép cuộn dọc toàn bộ container */
+    overflow-x: hidden; /* Ngăn cuộn ngang */
+    justify-content: center; /* Căn giữa nội dung con theo chiều ngang */
+}
+
+.data-display,
+.form-section {
+    width: 50%; /* Mỗi phần chiếm 50% chiều rộng */
+    padding: 30px;
 }
 
 .data-display {
     background-color: #FF4500;
     color: white;
-    width: 50%;
-    padding: 30px;
-    margin-left: auto;
 }
 
 .data-display h2 {
@@ -55,37 +64,12 @@ body {
     margin: 15px 0;
 }
 
-.details .promo-btn {
-    background-color: #FFF;
-    color: #FF4500;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 .total {
     font-weight: bold;
 }
 
-.form-label {
-    margin-bottom: 2rem;
-}
-
-.form-group {
-    margin-top: 0.75rem;
-}
-
-.form-control {
-    width: 80%;
-    max-width: 400px;
-    padding: 10px;
-    font-size: 16px;
-}
-
 .form-section {
     padding-left: 3rem;
-    width: 50%;
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -104,17 +88,6 @@ body {
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 40px;
-    box-shadow: 10px solid black;
-}
-
-.form-section input[type="checkbox"] {
-    width: auto;
-    margin-right: 10px;
-}
-
-.form-section label {
-    font-size: 14px;
-    margin: 10px 0;
 }
 
 .pay-btn {
@@ -126,43 +99,36 @@ body {
     border-radius: 20px;
     cursor: pointer;
     width: 80%;
+    align-self: center;
 }
 
-/* Mobile adjustments */
+/* Điều chỉnh cho thiết bị di động */
 @media screen and (max-width: 768px) {
     body {
         padding: 10px;
-        display: block; /* Allow full width on mobile */
+        display: block;
         align-items: unset;
     }
 
     .container {
         margin-top: 0;
-        flex-direction: column; /* Stack items vertically on smaller screens */
-        width: 100%; /* Full width */
-        height: auto; /* Allow height to adjust */
-        padding: 10px;
-        overflow-y: auto; /* Enable vertical scrolling */
+        flex-direction: column; /* Sắp xếp theo chiều dọc */
+        width: 100%; /* Chiều rộng đầy đủ */
+        height: auto; /* Để chiều cao tự điều chỉnh */
     }
 
     .data-display {
-        width: 100%; /* Take full width on mobile */
-        margin-left: 0;
+        width: 100%;
         padding: 20px;
     }
 
     .form-section {
         padding-left: 0;
-        width: 100%; /* Take full width */
+        width: 100%;
         padding-top: 10px;
     }
 
-    .form-section input,
-    .form-section select {
-        width: 100%; /* Ensure inputs take full width */
-    }
-
     .pay-btn {
-        width: 100%; /* Make pay button full width on mobile */
+        width: 100%; /* Nút thanh toán full-width */
     }
 }
