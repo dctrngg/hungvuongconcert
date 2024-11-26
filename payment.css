@@ -25,7 +25,7 @@ body {
     display: flex;
     flex-direction: row;
     width: 70vw;
-    height: 80vh;
+    height: 100vh;
     background: white;
     border-radius: 20px;
     overflow-y: auto; /* Cho phép cuộn dọc toàn bộ container */
