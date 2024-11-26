@@ -125,6 +125,11 @@ body {
     background-color: #e63900; /* Thay đổi màu khi hover */
 }
 
+
+.checkbox input{
+    width: auto;
+}
+
 /* Điều chỉnh cho thiết bị di động */
 @media screen and (max-width: 768px) {
     body {
