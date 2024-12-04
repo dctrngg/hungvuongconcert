@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Form</title>
-    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="style/payment.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         </div>
     
         <div class="form-section">
-            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbxuOZFKz0egnRJvqVN_mDKGT5nYFPybu9pAfvR6w_fSa9kYONiFIxv1HaiIi5JKInTd/exec">
+            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbz6yCwWTfsWu8m9QOqWEfkLX56-K-Ltd9HFKhG_fZKiu6oLqeI_ypnq14yungpk5olp/exec">
                 <h3>Personal Information</h3>
                 <label for="customer" class="form-label">Họ và Tên</label>
                 <div class="form-group">
@@ -115,6 +115,10 @@
             const totalPrice = ticketPrice * quantity;
             const confirmSubmission = confirm(`Bạn xác nhận thanh toán: ${totalPrice.toFixed(3)} VNĐ. Bạn có muốn tiếp tục ?`);
             if (!confirmSubmission) return; // Exit if user cancels
+            if (!customer || !phone || !email || quantity <= 0) {
+                alert("Vui lòng điền đầy đủ thông tin.");
+                return;
+            }
     
             if (imageFile) {
                 const formData = new FormData();
@@ -148,6 +152,7 @@
                         .then(result => {
                             console.log(result);
                             alert("Bạn đã đặt vé thành công!");
+                            window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
                         })
                         .catch(error => {
                             console.error('Error:', error);

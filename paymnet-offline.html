@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Form</title>
-    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="style/payment.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
         </div>
     
         <div class="form-section">
-            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbx5sTiwaxseR9Ge30Do0Ui9zIPD5hSuSa2UPGjVk3DYsUGdLyxllPtrr3Slaqr9SHDZ/exec">
+            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbzXjqhIxXIcBoKPssQmuSEITK0VUvfBqlUdjT9227Ob8LzJplOV0PG8ZoCVvQA7N3AlEA/exec">
                 <h3>Personal Information</h3>
                 <label for="customer" class="form-label">Họ và Tên</label>
                 <div class="form-group">
@@ -55,10 +55,10 @@
                     <input type="text" class="form-control" id="school" name="School" placeholder="" required />
                 </div>
 
-                <!-- <label for="note" class="form-label">Hãy để lại lời nhắn cho chúng mình nhé !!</label>
+                <label for="note" class="form-label">Hãy để lại lời nhắn cho chúng mình nhé !!</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="note" name="Note" placeholder="" required />
-                </div> -->
+                    <input type="text" class="form-control" id="note" name="Note" placeholder="" />
+                </div>
 
                 <div class="checkbox">
                 <label>
@@ -100,7 +100,7 @@
 
         document.getElementById('form').onsubmit = async function(event) {
             event.preventDefault(); // Prevent default form submission
-
+            console.log("Submit button clicked");
             const customer = document.getElementById('customer').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
@@ -128,7 +128,7 @@
             const confirmSubmission = confirm(`Bạn xác nhận thanh toán: ${totalPrice.toLocaleString()} VNĐ. Bạn có muốn tiếp tục ?`);
             if (!confirmSubmission) return; // Exit if user cancels
 
-            // Send the data to Google Sheets as one form submission
+      
             const formData = new FormData();
             formData.append("Customer", customer);
             formData.append("Phone", phone);
@@ -146,7 +146,9 @@
                 const result = await response.json();
                 console.log(result);
                 alert("Bạn đã đặt vé thành công!");
-                document.getElementById('form').reset(); // Reset form after submission
+                document.getElementById('form').reset(); 
+                window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
+                
             } catch (error) {
                 console.error('Error:', error);
                 alert('Error submitting data.');

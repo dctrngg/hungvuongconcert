@@ -92,6 +92,12 @@ body {
     border-radius: 0 20px 20px 0; /* Bo tròn góc bên phải */
 }
 
+.form-label{
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+   }
+
 .form-section h3 {
     font-size: 18px;
     margin-bottom: 10px;
@@ -104,7 +110,7 @@ body {
     font-size: 16px;
     width: 100%;
     border: 1px solid #ccc;
-    border-radius: 40px;
+    border-radius: 20px;
 }
 
 /* Nút thanh toán */
@@ -152,14 +158,26 @@ body {
         border-radius: 20px 20px 0 0; /* Bo tròn phần trên */
     }
 
+   .form-label{
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 20px;
+   }
     .form-section {
-        padding-left: 0;
+        
+        padding: 20px;
         width: 100%;
-        padding-top: 10px;
         border-radius: 0 0 20px 20px; /* Bo tròn phần dưới */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+        align-items: center; /* Căn giữa nội dung theo chiều ngang */
+        text-align: center; /* Căn giữa chữ */
     }
 
     .pay-btn {
         width: 100%; /* Nút thanh toán full-width */
     }
 }
+
+

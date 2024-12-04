@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/test.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div class="output"></div> -->
+    <section class="part1">
+        <div class="dark-overlay"></div>
+        <div class="container-lg content">
+            <div class="row ">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-6">
+                    <h1 class=" fw-bold header"> Lời Cảm Ơn</h1>
+
+                    <p>
+                        Hùng Vương Concert là chương trình ca nhạc và một chuỗi các hoạt động tình nguyện với mục đích
+                        vận động, quyên góp từ thiện, được tổ chức hằng năm tại trường THPT chuyên Hùng Vương, tỉnh Bình
+                        Dương. Đây là một chương trình hoành tráng, đặc sắc, được tổ chức quy mô, chuyên nghiệp với sự
+                        góp mặt của nhiều ca sĩ, diễn viên được đông đảo khán giả yêu thích.</p>
+                    <div class="quote">
+                        <div class="card">
+                            <p class="main">HVC chúng mình không tìm <strong><strike>Người giỏi nhất</strike></strong>,
+                                chúng mình
+                                tìm <strong>Người phù hợp nhất</strong></p>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p id="customerName"></p>
+                                        <p id="customerEmail"></p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p id="customerPhone"></p>
+                                        <p id="ticketQuantity"></p>
+                                    </div>
+                                </div>
+                            <p class="card-footer">Hung Vuong Concert: UNFOLD.</p>
+                        </div>
+                    </div>
+                    <p>Chương trình vừa là món quà tinh thần hấp dẫn sau một mùa học tập căng thẳng cho các bạn trẻ
+                        trong khu vực tỉnh Bình Dương và các khu vực lân cận, đồng thời là cánh cửa mở ra vô vàn cơ hội
+                        cho các vùng khó khăn, chậm phát triển nói chung và các hộ gia đình, trẻ em khó khăn nói riêng.
+                        Ngoài ra Hùng Vương Concert còn là một cơ hội, một sân chơi cho các bạn trẻ trải nghiệm, rèn
+                        luyện, mài dũa các kĩ năng khi làm việc một môi trường trẻ trung, năng động, chuyên nghiệp.</p>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        // Lấy thông tin từ URL
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('customerName').textContent = `Họ và tên: ${params.get('customer')}`;
+        document.getElementById('customerEmail').textContent = `Email: ${params.get('email')}`;
+        document.getElementById('customerPhone').textContent = `Số điện thoại: ${params.get('phone')}`;
+        document.getElementById('ticketQuantity').textContent = `Số lượng vé: ${params.get('quantity')}`;
+
+    </script>
+</body>
+
+</html>
+
+
+<!-- 
+<div class="ticket-front">
+    <h2>Concert Ticket</h2>
+    <p id="customerName"></p>
+    <p id="customerEmail"></p>
+    <p id="customerPhone"></p>
+    <p id="ticketQuantity"></p>
+</div> -->
