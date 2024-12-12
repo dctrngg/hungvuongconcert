@@ -57,7 +57,7 @@ body {
 
 /* Container chính */
 .container {
-    margin-top: 5vh;
+    margin-top: 25vh;
     display: flex;
     flex-direction: row;
     width: 80vw;
