@@ -5,25 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Form</title>
-    <link rel="stylesheet" href="style/payment.css">
+    <link rel="stylesheet" href="style/payment.css?v=1.0">
 </head>
 
-<body>
+<body
+    style="background: url('./images/kv/hvc-ticket.png') no-repeat ; background-size: cover; background-position: center top;">
     <div class="container">
         <div class="data-display">
-            <h2>Hung Vuong Concert: UNFOLD</h2>
-            <p class="amount">250.000 VNĐ</p>
+            <h2>Hung Vuong Concert: Unfold</h2>
+            <p class="amount">320.000 VNĐ</p>
             <div class="details">
                 <p><strong>Online Ticket</strong><br>Regular ticket</p>
-                <p>Giá vé <span id="subtotal">250.000 VNĐ</span></p>
+                <p>Giá vé <span id="subtotal"></span></p>
                 <p>Số lượng <span id="quantity-display">1</span></p> <!-- Changed this element to display quantity -->
                 <hr>
-                <p class="total">Total due <span id="total-due">€74.99</span></p>
+                <p class="total">Total due <span id="total-due"></span></p>
+                <br>
+                <p>*Khi mua vé trực tuyến (Online Ticket), bạn sẽ nhận được vé dưới dạng Mã QR.</p>
+                <p>*Mỗi lượt mua tối đa 5 vé, bạn có thể mua nhiều lượt.
+                </p>
             </div>
+            <!-- <div class="ticket-img">
+                <img src="./images/normal-ticket.png">
+            </div> -->
         </div>
-    
+
         <div class="form-section">
-            <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbz6yCwWTfsWu8m9QOqWEfkLX56-K-Ltd9HFKhG_fZKiu6oLqeI_ypnq14yungpk5olp/exec">
+            <form id="form" method="POST"
+                action="https://script.google.com/macros/s/AKfycbz6yCwWTfsWu8m9QOqWEfkLX56-K-Ltd9HFKhG_fZKiu6oLqeI_ypnq14yungpk5olp/exec">
                 <h3>Personal Information</h3>
                 <label for="customer" class="form-label">Họ và Tên</label>
                 <div class="form-group">
@@ -42,53 +51,96 @@
 
                 <label for="quantity" class="form-label">Số lượng vé</label>
                 <div class="form-group">
-                    <input type="number" class="form-control" id="quantity" name="Quantity" value="1" required />
+                    <input type="number" min="1" max="5" class="form-control" id="quantity" name="Quantity" value="1"
+                        required />
                 </div>
 
                 <div class="checkbox">
-                <label>
-                    <input type="checkbox"> Tôi đồng ý chia sẻ thông tin cá nhân cho Hùng Vương Concert: UNFOLD
-                </label>
-            </div>
+                    <label>
+                        <input type="checkbox"> Tôi đồng ý chia sẻ thông tin cá nhân cho Hùng Vương Concert: UNFOLD
+                    </label>
+                </div>
                 <div class="form-group">
                     <input type="file" class="form-control" id="image" name="Image" accept="image/*" required />
                 </div>
 
                 <button type="submit" class="pay-btn">Mua vé</button>
-                <div style="color: red; margin-top: 10px;"><label for="note" class="form-label">* Quá trình hoàn tất có thể sẽ mất chút thời gian</label></div>
+                <div style="color: red; margin-top: 10px;"><label for="note" class="form-label">* Quá trình hoàn tất có
+                        thể sẽ mất chút thời gian</label></div>
             </form>
         </div>
     </div>
+    <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <h2>Thông báo</h2>
+            <p id="popup-message"></p>
+            <button id="popup-close" class="popup-close-btn">Đóng</button>
+        </div>
+    </div>
+    <div class="popup-overlay" id="confirmation-popup">
+        <div class="popup-content">
+            <h2>Thông báo</h2>
+            <p id="popup-cf-message"></p>
+            <button class="popup-confirm-btn" id="popup-confirm-btn">Xác nhận</button>
+            <button id="popup-cf-close" class="popup-close-btn">Hủy</button>
+        </div>
+    </div>
+
 
     <script>
         const quantityInput = document.getElementById("quantity");
         const totalDueElement = document.getElementById("total-due");
         const subtotalElement = document.getElementById("subtotal");
         const quantityDisplayElement = document.getElementById("quantity-display");
-    
-        const ticketPrice = 250.000;
+
+        const ticketPrice = 320000;
         const vatRate = 0.27;
-    
+
         function updateTotalDue() {
             const quantity = parseInt(quantityInput.value);
             const subtotal = ticketPrice * quantity;
             const totalDue = subtotal;
-    
+
             // Update the displayed values
-            subtotalElement.textContent = `${subtotal.toFixed(3)} VNĐ`;
-            totalDueElement.textContent = `${totalDue.toFixed(3)} VNĐ`;
+            const formattedPrice1 = subtotal.toLocaleString('vi-VN');  // Định dạng số theo cách Việt Nam (có dấu chấm)
+            const formattedPrice2 = totalDue.toLocaleString('vi-VN');  // Định dạng số theo cách Việt Nam (có dấu chấm)
+
+            subtotalElement.textContent = `${formattedPrice1} VNĐ`;
+            totalDueElement.textContent = `${formattedPrice2} VNĐ`;
             quantityDisplayElement.textContent = quantity; // Update quantity display
         }
-    
+
         // Listen for quantity changes
         quantityInput.addEventListener("input", updateTotalDue);
-    
+
         // Initialize the total due on page load
         updateTotalDue();
-    
-        document.getElementById('form').onsubmit = async function(event) {
+
+        function showConfirmedPopup(message) {
+            return new Promise((resolve) => {
+                const popupOverlay = document.getElementById("confirmation-popup");
+                const popupMessage = document.getElementById("popup-cf-message");
+                const popupConfirmBtn = document.getElementById("popup-confirm-btn");
+                const popupCloseBtn = document.getElementById("popup-cf-close");
+
+                popupMessage.textContent = message;
+                popupOverlay.style.display = 'flex';
+
+                popupConfirmBtn.onclick = function () {
+                    resolve('confirmed'); 
+                    popupOverlay.style.display = 'none';
+                };
+
+                popupCloseBtn.onclick = function () {
+                    resolve('canceled');
+                    popupOverlay.style.display = 'none';
+                };
+            });
+        }
+       
+        document.getElementById('form').onsubmit = async function (event) {
             event.preventDefault(); // Prevent default form submission
-    
+
             const customer = document.getElementById('customer').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
@@ -97,82 +149,108 @@
             const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
             const imgbbApiKey = "720f1453f14c2cc6ba0b68214720705f";
             const url = this.action;
-    
+
             // Validation for phone number (must be 10 digits)
             const phoneRegex = /^[0-9]{10}$/;
             if (!phoneRegex.test(phone)) {
-                alert("Số điện thoại bao gồm 10 ký tự");
+                showPopup("Số điện thoại bao gồm 10 ký tự");
                 return;
             }
-    
+
             // Validation for quantity (must be between 1 and 5)
             if (quantity <= 0 || quantity > 5) {
-                alert("Bạn chỉ được mua tôi đa 5 vé.");
+                showPopup("Bạn chỉ được mua tôi đa 5 vé.");
                 return;
             }
-    
+
             // Calculate total price
-            const totalPrice = ticketPrice * quantity;
-            const confirmSubmission = confirm(`Bạn xác nhận thanh toán: ${totalPrice.toFixed(3)} VNĐ. Bạn có muốn tiếp tục ?`);
-            if (!confirmSubmission) return; // Exit if user cancels
+            // const totalPrice = ticketPrice * quantity;
+            // const confirmSubmission = confirm(`Bạn xác nhận thanh toán: ${totalPrice.toFixed(3)} VNĐ. Bạn có muốn tiếp tục ?`);
+            // if (!confirmSubmission) return;
+
             if (!customer || !phone || !email || quantity <= 0) {
-                alert("Vui lòng điền đầy đủ thông tin.");
+                showPopup("Vui lòng điền đầy đủ thông tin.");
                 return;
             }
-    
-            if (imageFile) {
-                const formData = new FormData();
-                formData.append("image", imageFile);
-                formData.append("Customer", customer);
-                formData.append("Phone", phone);
-                formData.append("Email", email);
-                formData.append("Quantity", quantity);
-                formData.append("Note", note);
-    
-                try {
-                    const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
-                        method: "POST",
-                        body: formData
-                    });
-    
-                    const imgbbData = await imgbbResponse.json();
-    
-                    if (imgbbData.success) {
-                        const imageUrl = imgbbData.data.url;
-    
-                        // Append the image URL to the form data
-                        formData.append("Image", imageUrl);
-    
-                        // Send the data to Google Sheets as one form submission
-                        await fetch(url, {
-                            method: 'POST',
+
+            const totalPrice = ticketPrice * quantity;
+            const formattedPrice = totalPrice.toLocaleString('vi-VN');  // Định dạng số theo cách Việt Nam (có dấu chấm)
+            const message = `Bạn xác nhận thanh toán: ${formattedPrice}đ. Bạn có muốn tiếp tục?`;
+            const result = await showConfirmedPopup(message); // Gọi hàm để hiển thị popup và chờ người dùng xác nhận
+
+            if (result === 'confirmed') {
+                if (imageFile) {
+                    const formData = new FormData();
+                    formData.append("image", imageFile);
+                    formData.append("Customer", customer);
+                    formData.append("Phone", phone);
+                    formData.append("Email", email);
+                    formData.append("Quantity", quantity);
+                    formData.append("Note", note);
+
+                    try {
+                        // Upload image to imgbb
+                        const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
+                            method: "POST",
                             body: formData
-                        })
-                        .then(response => response.json())
-                        .then(result => {
-                            console.log(result);
-                            alert("Bạn đã đặt vé thành công!");
-                            window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Error submitting data.');
                         });
-    
-                        document.getElementById('form').reset(); // Reset form after submission
-                    } else {
-                        alert("Failed to upload image to imgbb.");
+
+                        const imgbbData = await imgbbResponse.json();
+
+                        if (imgbbData.success) {
+                            const imageUrl = imgbbData.data.url;
+                            formData.append("Image", imageUrl);
+
+                            // Submit form data
+                            await fetch(url, {
+                                method: 'POST',
+                                body: formData
+                            })
+                                .then(response => response.json())
+                                .then(result => {
+                                    console.log(result);
+                                    showPopup("Bạn đã đặt vé thành công!");
+                                    setTimeout(() => {
+                                        window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
+                                    }, 3000);
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    showPopup('Error submitting data.');
+                                });
+
+                            document.getElementById('form').reset();
+                        } else {
+                            showPopup("Failed to upload image to imgbb.");
+                        }
+                    } catch (error) {
+                        console.error("Error uploading image:", error);
+                        showPopup("Error uploading image to imgbb.");
                     }
-                } catch (error) {
-                    console.error("Error uploading image:", error);
-                    alert("Error uploading image to imgbb.");
+                } else {
+                    showPopup("Please select an image to upload.");
                 }
-            } else {
-                alert("Please select an image to upload.");
             }
         };
+
+
+        function showPopup(message) {
+            const popup = document.getElementById("popup");
+            const popupMessage = document.getElementById("popup-message");
+            popupMessage.textContent = message;
+            popup.style.display = "flex";
+        }
+
+        function closePopup() {
+            const popup = document.getElementById("popup");
+            popup.style.display = "none";
+        }
+
+        document.getElementById("popup-close").addEventListener("click", closePopup);
+
+
     </script>
-    
+
 </body>
 
 </html>

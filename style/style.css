@@ -14,7 +14,7 @@
 
 
 .overlay {
-  z-index: 1000;
+    z-index: 1000;
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -25,7 +25,7 @@
     overflow: hidden;
     align-items: center;
     justify-content: space-between;
-   
+
 }
 
 .background-video {
@@ -36,10 +36,11 @@
     height: 100%;
     object-fit: cover;
     z-index: 998;
-    pointer-events: none; /* Đảm bảo video không ảnh hưởng đến tương tác với các phần tử khác */
+    pointer-events: none;
+    /* Đảm bảo video không ảnh hưởng đến tương tác với các phần tử khác */
 }
 
-.intro{
+.intro {
     width: 50%;
     padding: 1em;
     z-index: 999;
@@ -64,35 +65,45 @@ h2 {
 
 .intro:nth-child(2) h2 span {
     color: #fff;
-    
+
 }
 
-.nav-effect{
-   
+.nav-effect {
+
     padding: 15px 30px;
-    font-size: rem; /* Slightly larger text size */
-    text-decoration: none; /* Remove underline from the link */
-    transition: background-color 0.3s ease;
-    margin-left: 5vw;
-    margin-right: 5vw;
-  }
- 
-  .buy-tickets-button {
-    background-color: white; /* Bright orange background */
-    color: black; /* White text color */
-    padding: 15px 30px;
-    border-radius: 30px; /* Fully rounded corners */
-    font-size: 3.2rem; /* Slightly larger text size */
-    text-decoration: none; /* Remove underline from the link */
-    font-weight: bold; /* Bold text */
+    font-size: rem;
+    /* Slightly larger text size */
+    text-decoration: none;
+    /* Remove underline from the link */
     transition: background-color 0.3s ease;
     margin-left: 5vw;
     margin-right: 5vw;
 }
 
-@media screen and (max-width: 768px){
-    html{
-      font-size: max(100vw / 768 * 10);
+.buy-tickets-button {
+    background-color: white;
+    /* Bright orange background */
+    color: black;
+    /* White text color */
+    padding: 15px 30px;
+    border-radius: 30px;
+    /* Fully rounded corners */
+    font-size: 3.2rem;
+    /* Slightly larger text size */
+    text-decoration: none;
+    /* Remove underline from the link */
+    font-weight: bold;
+    /* Bold text */
+    transition: background-color 0.3s ease;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    html {
+        font-size: max(100vw / 768 * 10);
     }
 
     .intro:nth-child(2) h2 {
@@ -100,9 +111,8 @@ h2 {
         text-align: right;
     }
 
-    .ticket-button-div{
+    .ticket-button-div {
         margin-top: 5rem;
     }
 
-  }
-
+}
