@@ -9,6 +9,7 @@ section.part1 {
   background-size: cover;
   background-color: black;
   /* padding-top: 10%; */
+  /* filter: brightness(70%); */
 }
 
 @media screen and (max-width: 768px) {
@@ -19,6 +20,16 @@ section.part1 {
   h1 {
     margin-top: 10%;
   }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3); /* Lớp phủ màu đen với độ trong suốt */
+  z-index: 1; /* Đảm bảo lớp phủ nằm trên hình ảnh nền */
 }
 
 .dark-overlay {
@@ -60,7 +71,6 @@ section.part1 {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .card {
@@ -72,7 +82,7 @@ section.part1 {
   margin-bottom: 10%;
   max-width: 80%;
   height: 250px;
-  padding: 35px;
+  padding: 20px;
   border: 1px solid rgba(255, 255, 255, .25);
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.25);

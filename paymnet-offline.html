@@ -20,6 +20,12 @@
                 <p>Số lượng <span id="quantity-display">1</span></p> <!-- Changed this element to display quantity -->
                 <hr>
                 <p class="total">Total due <span id="total-due">320.000 VNĐ</span></p>
+                <br>
+                <p>*Khi mua vé giấy (Paper Ticket), bạn sẽ nhận được nhận vé thông qua địa chỉ và thông tin bạn cung cấp.</p>
+                <p>*Mỗi lượt mua tối đa 5 vé, bạn có thể mua nhiều lượt.
+                </p>
+                <p>*Quý khách vui lòng thanh toán đủ số tiền cho đúng số vé khi nhận vé.</p>
+                <p>*Bằng việc mua vé, người tham gia đồng ý tuân thủ các quy định của BTC.</p>
             </div>
         </div>
 
@@ -65,15 +71,12 @@
 
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" required> Tôi đồng ý chia sẻ thông tin cá nhân cho Hùng Vương Concert:
-                        UNFOLD
+                        <input type="checkbox" required> Tôi đồng ý với các điều khoản và quy định khi tham gia sự kiện
                     </label>
                 </div>
-
-
                 <button type="submit" class="pay-btn">Mua vé</button>
-                <div style="color: red; margin-top: 10px;"><label for="note" class="form-label">* Quá trình hoàn tất có
-                        thể sẽ mất chút thời gian</label></div>
+                <!-- <div style="color: red; margin-top: 10px;"><label for="note" class="form-label">* Quá trình hoàn tất có
+                        thể sẽ mất chút thời gian</label></div> -->
             </form>
         </div>
     </div>
@@ -188,6 +191,11 @@
                 formData.append("School", school);
                 formData.append("Note", note);
 
+                const loadingMessage = `
+                                            <p>Đang chờ hệ thống xử lý...</p>
+                                            <img src="./images/loading.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
+                                    `;
+                    showPopup(loadingMessage, true, true);
                 try {
                     const response = await fetch(url, {
                         method: 'POST',
@@ -196,9 +204,13 @@
                     const result = await response.json();
                     console.log(result);
                     document.getElementById('form').reset();
-                    showPopup("Bạn đã đặt vé thành công!");
+                    const successMessage = `
+                                            <p>Bạn đã đặt vé thành công!</p>
+                                            <img src="./images/success.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
+                                    `;
+                    showPopup(successMessage, true, true);                    
                     setTimeout(() => {
-                        window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
+                    window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
                     }, 3000);
                 } catch (error) {
                     console.error('Error:', error);
@@ -206,11 +218,21 @@
                 }
             }
         };
-
-        function showPopup(message) {
+        function showPopup(message, isHtml = false, hideCloseButton = false) {
             const popup = document.getElementById("popup");
             const popupMessage = document.getElementById("popup-message");
-            popupMessage.textContent = message;
+            const popupCloseButton = document.getElementById("popup-close");
+
+            if (isHtml) {
+                popupMessage.innerHTML = message; 
+            } else {
+                popupMessage.textContent = message; 
+            }
+
+            if (hideCloseButton) {
+                popupCloseButton.style.display = "none"; 
+            } 
+
             popup.style.display = "flex";
         }
 

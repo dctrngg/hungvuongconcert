@@ -9,7 +9,7 @@
 </head>
 
 <body
-    style="background: url('./images/kv/hvc-ticket.webp') no-repeat ; background-size: cover; background-position: center top;">
+    style="background: url('./images/kv/hvc-ticket.webp') no-repeat ; background-size: cover; background-position: center top; ">
     <div class="container">
         <div class="data-display">
             <h2>Hung Vuong Concert: Unfold</h2>
@@ -24,6 +24,8 @@
                 <p>*Khi mua vé trực tuyến (Online Ticket), bạn sẽ nhận được vé dưới dạng Mã QR.</p>
                 <p>*Mỗi lượt mua tối đa 5 vé, bạn có thể mua nhiều lượt.
                 </p>
+                <p>*Quý khách vui lòng thanh toán đủ số tiền cho đúng số vé.</p>
+                <p>*Bằng việc mua vé, người tham gia đồng ý tuân thủ các quy định của BTC.</p>
             </div>
         </div>
 
@@ -52,18 +54,20 @@
                         required />
                 </div>
 
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Tôi đồng ý chia sẻ thông tin cá nhân cho Hùng Vương Concert: UNFOLD
-                    </label>
-                </div>
+
+                <label style="color: red">*Upload hóa đơn chuyển khoản để HVC xác nhận giao dịch</label>
                 <div class="form-group">
                     <input type="file" class="form-control" id="image" name="Image" accept="image/*" required />
+                    <!-- <label for="image" class="custom-file-label">Upload bill chuyển khoản</label>                 -->
                 </div>
-
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" required> Tôi đồng ý với các điều khoản và quy định khi tham gia sự kiện
+                    </label>
+                </div>
                 <button type="submit" class="pay-btn">Mua vé</button>
-                <div style="color: red; margin-top: 10px;"><label for="note" class="form-label">* Quá trình hoàn tất có
-                        thể sẽ mất chút thời gian</label></div>
+                <!-- <div style="color: red; margin-top: 10px;"><label for="note" class="form-label">* Quá trình hoàn tất có
+                        thể sẽ mất chút thời gian</label></div> -->
             </form>
         </div>
     </div>
@@ -124,7 +128,7 @@
                 popupOverlay.style.display = 'flex';
 
                 popupConfirmBtn.onclick = function () {
-                    resolve('confirmed'); 
+                    resolve('confirmed');
                     popupOverlay.style.display = 'none';
                 };
 
@@ -134,7 +138,7 @@
                 };
             });
         }
-       
+
         document.getElementById('form').onsubmit = async function (event) {
             event.preventDefault(); // Prevent default form submission
 
@@ -171,9 +175,9 @@
             }
 
             const totalPrice = ticketPrice * quantity;
-            const formattedPrice = totalPrice.toLocaleString('vi-VN');  // Định dạng số theo cách Việt Nam (có dấu chấm)
+            const formattedPrice = totalPrice.toLocaleString('vi-VN');  
             const message = `Bạn xác nhận thanh toán: ${formattedPrice}đ. Bạn có muốn tiếp tục?`;
-            const result = await showConfirmedPopup(message); // Gọi hàm để hiển thị popup và chờ người dùng xác nhận
+            const result = await showConfirmedPopup(message); 
 
             if (result === 'confirmed') {
                 if (imageFile) {
@@ -184,6 +188,12 @@
                     formData.append("Email", email);
                     formData.append("Quantity", quantity);
                     formData.append("Note", note);
+                    
+                    const loadingMessage = `
+                                            <p>Đang chờ hệ thống xử lý...</p>
+                                            <img src="./images/loading.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
+                                    `;
+                    showPopup(loadingMessage, true, true);
 
                     try {
                         // Upload image to imgbb
@@ -206,7 +216,11 @@
                                 .then(response => response.json())
                                 .then(result => {
                                     console.log(result);
-                                    showPopup("Bạn đã đặt vé thành công!");
+                                    const successMessage = `
+                                            <p>Bạn đã đặt vé thành công!</p>
+                                            <img src="./images/success.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
+                                    `;
+                                    showPopup(successMessage, true, true);
                                     setTimeout(() => {
                                         window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
                                     }, 3000);
@@ -231,12 +245,24 @@
         };
 
 
-        function showPopup(message) {
+        function showPopup(message, isHtml = false, hideCloseButton = false) {
             const popup = document.getElementById("popup");
             const popupMessage = document.getElementById("popup-message");
-            popupMessage.textContent = message;
+            const popupCloseButton = document.getElementById("popup-close");
+
+            if (isHtml) {
+                popupMessage.innerHTML = message; 
+            } else {
+                popupMessage.textContent = message; 
+            }
+
+            if (hideCloseButton) {
+                popupCloseButton.style.display = "none"; 
+            } 
+
             popup.style.display = "flex";
         }
+
 
         function closePopup() {
             const popup = document.getElementById("popup");
