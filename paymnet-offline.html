@@ -188,14 +188,14 @@
             const customer = document.getElementById('customer').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
-            const linkfb = document.getElementById('linkfb');
+            const linkfb = document.getElementById('linkfb').value;
             const address = document.getElementById('address').value;
             const quantity = parseInt(document.getElementById('quantity').value, 10);
-            const type = document.getElementById('paymen-method') ;
+            const type = document.getElementById('payment-method').value;
             const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
             const imgbbApiKey = "720f1453f14c2cc6ba0b68214720705f";
             const note = document.getElementById('note').value;
-            const referrer = document.getElementById('referrer');
+            const referrer = document.getElementById('referrer').value;
             const url = this.action;
 
             // Validation for phone number (must be 10 digits)
