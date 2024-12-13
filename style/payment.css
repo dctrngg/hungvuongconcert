@@ -207,6 +207,13 @@ body {
     margin: 10px 0;
 }
 
+.popup-content h2 {
+    background: linear-gradient(to right, #FFFF5F, #FB6353, #BF91F1, #0066FF, #000642);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* font-size: 32px; */
+}
+
 .popup-content button {
     margin-top: 10px;
     cursor: pointer;

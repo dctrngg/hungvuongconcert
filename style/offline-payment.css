@@ -32,11 +32,12 @@ body {
 
 body {
     display: flex;
-    justify-content: center; 
-    align-items: center;    
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     overflow-y: auto;
-    height: 100vh; /* Đảm bảo body có chiều cao đủ để không bị mất phần trên */
+    height: 100vh;
+    /* Đảm bảo body có chiều cao đủ để không bị mất phần trên */
     background-color: black;
 }
 
@@ -57,7 +58,7 @@ body {
 
 /* Container chính */
 .container {
-    margin-top: 25vh;
+    margin-top: 35vh;
     display: flex;
     flex-direction: row;
     width: 80vw;
@@ -201,6 +202,13 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 300px;
+}
+
+.popup-content h2 {
+    background: linear-gradient(to right, #FFFF5F, #FB6353, #BF91F1, #0066FF, #000642);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* font-size: 32px; */
 }
 
 .popup-content p {
