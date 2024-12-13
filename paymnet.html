@@ -31,7 +31,7 @@
 
         <div class="form-section">
             <form id="form" method="POST"
-                action="https://script.google.com/macros/s/AKfycbz6yCwWTfsWu8m9QOqWEfkLX56-K-Ltd9HFKhG_fZKiu6oLqeI_ypnq14yungpk5olp/exec">
+                action="https://script.google.com/macros/s/AKfycbzb2C4R9DwJUEAkvFLtqO9rxmSL2OFQyjl0-v1euqJgVgpEkeU_kqGkHniMbo41opaH/exec">
                 <h3>Personal Information</h3>
                 <label for="customer" class="form-label">Họ và Tên</label>
                 <div class="form-group">
@@ -53,9 +53,9 @@
                     <input type="text" class="form-control" id="linkfb" name="linkfb" placeholder="" required />
                 </div>
 
-                <label for="nguoigioithieu" class="form-label">Người giới thiệu</label>
+                <label for="referrer" class="form-label">Người giới thiệu</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="nguoigioithieu" name="nguoigioithieu" placeholder="Tuỳ chọn" />
+                    <input type="text" class="form-control" id="referrer" name="referrer" placeholder="Tuỳ chọn" />
                 </div>
 
                 <label for="quantity" class="form-label">Số lượng vé</label>
@@ -156,6 +156,7 @@
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
             const linkfb = document.getElementById('linkfb').value;
+            const referer = document.getElementById('referrer').value;
             const quantity = parseInt(document.getElementById('quantity').value, 10);
             const note = document.getElementById('note') ? document.getElementById('note').value : '';
             const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
@@ -198,11 +199,13 @@
                     formData.append("Phone", phone);
                     formData.append("Email", email);
                     formData.append("Facebook", linkfb);
+                    formData.append("Referrer", referer);
                     formData.append("Quantity", quantity);
                     formData.append("Note", note);
                     
                     const loadingMessage = `
                                             <p>Đang chờ hệ thống xử lý...</p>
+                                            <p>(Có thể mất 5 - 10s)</p>
                                             <img src="./images/loading.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
                                     `;
                     showPopup(loadingMessage, true, true);
