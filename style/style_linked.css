@@ -2029,3 +2029,131 @@ img {
     top: 155px;
   }
 }
+
+/* Portrait mode for iPad Pro 11 inch */
+@media screen and (min-width: 834px) and (max-width: 1194px) and (orientation: portrait) {
+  #talent-section {
+    background: none !important;
+    background-color: black !important;
+    margin-top:  400px   !important; /* Adjusted for portrait mode */
+  }
+
+  .heading-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .heading-div span {
+    font-size: 36px !important; /* Slightly smaller for iPad Pro */
+  }
+
+  .talent .speakers-grid {
+    grid-template-columns: 1fr 1fr; /* Adjust for portrait */
+  }
+
+  .talent .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .talent .hero-wrapper.full-width {
+    padding: 20px;
+  }
+}
+
+@media screen and (min-width: 820px) and (max-width: 1180px) and (orientation: portrait) {
+  #talent-section {
+    background: none !important;
+    background-color: black !important;
+    margin-top:  400px   !important; /* Adjusted for portrait mode */
+  }
+
+  .heading-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .heading-div span {
+    font-size: 36px !important; /* Slightly smaller for iPad Pro */
+  }
+
+  .talent .speakers-grid {
+    grid-template-columns: 1fr 1fr; /* Adjust for portrait */
+  }
+
+  .talent .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .talent .hero-wrapper.full-width {
+    padding: 20px;
+  }
+}
+
+
+/* Landscape mode for iPad Pro 11 inch */
+@media screen and (min-width: 834px) and (max-width: 1194px) and (orientation: landscape) {
+  
+  #talent-section {
+    background: none !important;
+    background-color: black !important;
+    margin-top: 1000px !important; /* Adjusted for landscape mode */
+  }
+
+  .footer .powered  {
+    left: 0px;
+    top: 155px;
+  }
+
+  .heading-div span {
+    font-size: 40px !important;
+  }
+
+  .talent .speakers-grid {
+    grid-template-columns: 1fr 1fr 1fr; /* More space in landscape */
+  }
+
+  .talent .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .talent .hero-wrapper.full-width {
+    padding: 40px;
+  }
+}
+
+/* General styles for iPad Pro 11 inch */
+@media screen and (min-width: 834px) and (max-width: 1194px) {
+  .wrapper.home-speaker-wrapper {
+    padding-top: 0px;
+    padding-bottom: 20px;
+  }
+
+  .talent .speaker-img.basic {
+    position: relative;
+  }
+
+  .talent .info-grid-item {
+    border-radius: 12px;
+    justify-content: center;
+    max-width: none;
+    padding: 20px;
+  }
+
+  .talent .grid-program.mobile {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .talent .t-mobile-text {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1920px) {
+  #talent-section {
+    background: linear-gradient(to right, #000, #333) !important;
+    margin-top: 3500px !important; /* Khoảng cách cho màn hình lớn */
+  }
+}
+
