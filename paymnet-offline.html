@@ -15,13 +15,13 @@
             <h2>Hung Vuong Concert: Unfold</h2>
             <p class="amount">320.000 VNĐ</p>
             <div class="details">
-                <p><strong>Paper Ticket</strong><br>Regular ticket</p>
+                <p><strong>Paper Ticket</strong><br>Vé Thường</p>
                 <p>Giá vé <span id="subtotal">320.000 VNĐ</span></p>
                 <p>Số lượng <span id="quantity-display">1</span></p> <!-- Changed this element to display quantity -->
                 <hr>
                 <p class="total">Total due <span id="total-due">320.000 VNĐ</span></p>
                 <br>
-                <p>*Khi mua vé giấy (Paper Ticket), bạn sẽ nhận được nhận vé thông qua địa chỉ và thông tin bạn cung cấp.</p>
+                <p>*Khi mua vé giấy (Paper Ticket), bạn sẽ được nhận vé thông qua địa chỉ trong thông tin bạn cung cấp.</p>
                 <p>*Mỗi lượt mua tối đa 5 vé, bạn có thể mua nhiều lượt.
                 </p>
                 <p>*Quý khách vui lòng thanh toán đủ số tiền cho đúng số vé khi nhận vé.</p>
@@ -33,27 +33,27 @@
             <form id="form" method="POST"
                 action="https://script.google.com/macros/s/AKfycbzXjqhIxXIcBoKPssQmuSEITK0VUvfBqlUdjT9227Ob8LzJplOV0PG8ZoCVvQA7N3AlEA/exec">
                 <h3>Personal Information</h3>
-                <label for="customer" class="form-label">Họ và Tên</label>
+                <label for="customer" class="form-label">Họ và Tên*</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="customer" name="Customer" placeholder="" required />
                 </div>
 
-                <label for="phone" class="form-label">Số điện thoại</label>
+                <label for="phone" class="form-label">Số điện thoại*</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="phone" name="Phone" placeholder="" required />
                 </div>
 
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">Email*</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="email" name="Email" placeholder="" required />
                 </div>
 
-                <label for="address" class="form-label">Địa chỉ</label>
+                <label for="address" class="form-label">Địa chỉ*</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="address" name="Address" placeholder="" required />
                 </div>
 
-                <label for="linkfb" class="form-label">Link Facebook</label>
+                <label for="linkfb" class="form-label">Link Facebook*</label>
                 <div class="form-group">
                     <input type="text" class="form-control" id="linkfb" name="linkfb" placeholder="" required />
                 </div>
@@ -67,8 +67,8 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="school" name="School" placeholder="Tuỳ chọn"  />
                 </div>
-                
-                <label for="quantity" class="form-label">Số lượng vé</label>
+
+                <label for="quantity" class="form-label">Số lượng vé*</label>
                 <div class="form-group">
                     <input type="number" min="1" max="5" class="form-control" id="quantity" name="Quantity" value="1"
                         required />
@@ -203,6 +203,7 @@
 
                 const loadingMessage = `
                                             <p>Đang chờ hệ thống xử lý...</p>
+                                            <p>(Có thể mất 5 - 10s)</p>
                                             <img src="./images/loading.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
                                     `;
                     showPopup(loadingMessage, true, true);
