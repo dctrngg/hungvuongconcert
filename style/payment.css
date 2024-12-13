@@ -36,7 +36,7 @@ body {
     align-items: center;    
     padding: 20px;
     overflow-y: auto;
-    height: 100vh; /* Đảm bảo body có chiều cao đủ để không bị mất phần trên */
+    min-height: 100vh; /* Sử dụng min-height thay vì height */
     background-color: black;
 }
 
@@ -57,7 +57,7 @@ body {
 
 /* Container chính */
 .container {
-    margin-top: 5vh;
+    margin-top: 5vh auto;
     display: flex;
     flex-direction: row;
     width: 80vw;
