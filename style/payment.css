@@ -32,11 +32,12 @@ body {
 
 body {
     display: flex;
-    justify-content: center; 
-    align-items: center;    
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     overflow-y: auto;
-    min-height: 100vh; /* Sử dụng min-height thay vì height */
+    min-height: 100vh;
+    /* Sử dụng min-height thay vì height */
     background-color: black;
 }
 
@@ -304,5 +305,21 @@ body {
     .pay-btn {
         width: 100%;
         /* Nút thanh toán full-width */
+    }
+}
+
+/* Media cho màn hình 16 inch (1440px đến 1920px) */
+@media screen and (min-width: 1440px) and (max-width: 1920px) {
+    .container {
+        margin-top: 10vh auto;
+        /* Tăng khoảng cách margin-top */
+    }
+}
+
+/* Media cho màn hình 24 inch (1921px trở lên) */
+@media screen and (min-width: 1921px) {
+    .container {
+        margin-top: 15vh auto;
+        /* Tăng khoảng cách margin-top hơn nữa */
     }
 }

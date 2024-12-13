@@ -2149,11 +2149,3 @@ img {
     display: block;
   }
 }
-
-@media screen and (min-width: 1440px) and (max-width: 1920px) {
-  #talent-section {
-    background: linear-gradient(to right, #000, #333) !important;
-    margin-top: 3500px !important; /* Khoảng cách cho màn hình lớn */
-  }
-}
-
