@@ -34,8 +34,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 100px;
-    padding-bottom: 100px;    
+    padding-top: 50px;
+    padding-bottom: 50px;    
     overflow-y: auto;
     min-height: 100vh; /* Sử dụng min-height thay vì height */
     /* Đảm bảo body có chiều cao đủ để không bị mất phần trên */
