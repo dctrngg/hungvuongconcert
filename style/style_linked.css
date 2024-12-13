@@ -1981,13 +1981,32 @@ img {
 
 .content-social {
   position: relative;
-  bottom: 60px;
+  bottom: 10px;
 }
 
 .footer p {
   color: white;
   font-size: 50px;
   font-family: 'DFVN 36daysoftype', sans-serif;
+}
+
+.footer .powered {
+  position: relative;
+  left: 600px;
+  top: 150px;
+}
+
+.footer .powered-title {
+  color: white;
+  font-size: 20px;
+  font-family: 'DFVN 36daysoftype', sans-serif;
+  margin-bottom: 0px;
+}
+
+.footer .powered-name {
+  color: white;
+  font-size: 15px;
+  font-family: 'Ganh Type - Regular', sans-serif;
 }
 
 .footer .logo-social a {
@@ -2004,3 +2023,9 @@ img {
   cursor: pointer;
 }
 
+@media (max-width: 992px) {
+  .footer .powered  {
+    left: 0px;
+    top: 155px;
+  }
+}
