@@ -156,7 +156,7 @@
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
             const linkfb = document.getElementById('linkfb').value;
-            const referer = document.getElementById('referrer') ? document.getElementById('referrer').value : '';
+            const referrer = document.getElementById('referrer') ? document.getElementById('referrer').value : '';
             const quantity = parseInt(document.getElementById('quantity').value, 10);
             // const note = document.getElementById('note') ? document.getElementById('note').value : '';
             const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
@@ -199,7 +199,7 @@
                     formData.append("Email", email);
                     formData.append("Facebook", linkfb);
                     formData.append("Quantity", quantity);
-                    formData.append("Referrer", referer);
+                    formData.append("Referrer", referrer);
                     // formData.append("Note", note);
                     formData.append("image", imageFile);
                     
