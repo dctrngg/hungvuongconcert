@@ -59,7 +59,7 @@ body {
 
 /* Container chính */
 .container {
-    margin-top: 35vh;
+    margin-top: 28vh;
     display: flex;
     flex-direction: row;
     width: 80vw;
