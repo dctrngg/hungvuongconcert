@@ -93,7 +93,7 @@ const dataCol3 = [
     {
         id: 'p3_2',
         title: 'anh13',
-        img: './images/data/12.webp',
+        img: './images/data/13.webp',
         type: 'image',
         backgroundColor: '#72A0C1',
     },

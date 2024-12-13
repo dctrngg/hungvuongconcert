@@ -156,9 +156,9 @@
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
             const linkfb = document.getElementById('linkfb').value;
-            const referer = document.getElementById('referrer').value;
+            const referer = document.getElementById('referrer') ? document.getElementById('referrer').value : '';
             const quantity = parseInt(document.getElementById('quantity').value, 10);
-            const note = document.getElementById('note') ? document.getElementById('note').value : '';
+            // const note = document.getElementById('note') ? document.getElementById('note').value : '';
             const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
             const imgbbApiKey = "720f1453f14c2cc6ba0b68214720705f";
             const url = this.action;
@@ -194,14 +194,14 @@
             if (result === 'confirmed') {
                 if (imageFile) {
                     const formData = new FormData();
-                    formData.append("image", imageFile);
                     formData.append("Customer", customer);
                     formData.append("Phone", phone);
                     formData.append("Email", email);
                     formData.append("Facebook", linkfb);
-                    formData.append("Referrer", referer);
                     formData.append("Quantity", quantity);
-                    formData.append("Note", note);
+                    formData.append("Referrer", referer);
+                    // formData.append("Note", note);
+                    formData.append("image", imageFile);
                     
                     const loadingMessage = `
                                             <p>Đang chờ hệ thống xử lý...</p>
