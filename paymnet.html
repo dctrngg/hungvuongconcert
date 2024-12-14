@@ -186,6 +186,12 @@
                 return;
             }
 
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showPopup("Vui lòng nhập email hợp lệ.");
+                return;
+            }
+
             const totalPrice = ticketPrice * quantity;
             const formattedPrice = totalPrice.toLocaleString('vi-VN');  
             const message = `Bạn xác nhận thanh toán: ${formattedPrice}đ. Bạn có muốn tiếp tục?`;

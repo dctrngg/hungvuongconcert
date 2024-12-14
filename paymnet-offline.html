@@ -32,7 +32,7 @@
 
         <div class="form-section">
             <form id="form" method="POST"
-                action="https://script.google.com/macros/s/AKfycbw39r_vgzJ6qB1VC9rvAS7uxJ3qJ0FBX6EfGdFFz-uNpupCAoxiDFgOKwXAZzAlXtme/exec">
+                action="https://script.google.com/a/macros/hungvuongconcert.com/s/AKfycbywv46PT-4oHFfFBD7S8JESRzjVguzjqYBfefgk6Q3qmZmISApAPb6D4cQH2aKnVPI/exec">
                 <h3>Personal Information</h3>
                 <label for="customer" class="form-label">Họ và Tên*</label>
                 <div class="form-group">
@@ -87,10 +87,9 @@
                     <input type="text" class="form-control" id="note" name="Note" placeholder="" />
                 </div>
 
-                <label for="nguoigioithieu" class="form-label">Người giới thiệu</label>
+                <label for="referrer" class="form-label">Người giới thiệu</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="nguoigioithieu" name="nguoigioithieu"
-                        placeholder="Tuỳ chọn" />
+                    <input type="text" class="form-control" id="referrer" name="referrer" placeholder="Tuỳ chọn" />
                 </div>
 
 
@@ -216,6 +215,12 @@
                 return;
             }
 
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showPopup("Vui lòng nhập email hợp lệ.");
+                return;
+            }
+
 
             // Calculate total price
             const totalPrice = ticketPrice * quantity;
@@ -338,7 +343,7 @@
             }
         };
 
-        
+
         function showPopup(message, isHtml = false, hideCloseButton = false) {
             const popup = document.getElementById("popup");
             const popupMessage = document.getElementById("popup-message");
@@ -361,6 +366,7 @@
             const popup = document.getElementById("popup");
             popup.style.display = "none";
         }
+
 
         document.getElementById("popup-close").addEventListener("click", closePopup);
     </script>
