@@ -32,7 +32,7 @@
 
         <div class="form-section">
             <form id="form" method="POST"
-                action="https://script.google.com/macros/s/AKfycbw1ib5DvvGwPXL8KgCzhi3uqQMD1HqJPH4XHBx97BrmJm3x9cNJNcMD0xx3IMKJUXZv/exec">
+                action="https://script.google.com/macros/s/AKfycbwxu2h771KuvLGX2WFNL6Dupqz3D4BNEL_xaa2DcEy6qOg7WqJhi_JmXkX5lIYzPCBK/exec">
                 <h3>Personal Information</h3>
                 <label for="customer" class="form-label">Họ và Tên*</label>
                 <div class="form-group">
@@ -243,6 +243,11 @@
                         formData.append("image", imageFile);
                         formData.append("Note", note);
                         formData.append("Referrer", referrer);
+
+                        console.log("Nội dung FormData:");
+                        for (const pair of formData.entries()) {
+                            console.log(pair[0] + ": " + pair[1]);
+                        }
 
                         const loadingMessage = `
                                             <p>Đang chờ hệ thống xử lý...</p>
