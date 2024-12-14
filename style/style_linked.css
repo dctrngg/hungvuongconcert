@@ -2030,6 +2030,13 @@ img {
   }
 }
 
+@media (max-width: 1024px) {
+  .footer .powered  {
+    left: 0px;
+    top: 155px;
+  }
+}
+
 /* Portrait mode for iPad Pro 11 inch */
 @media screen and (min-width: 834px) and (max-width: 1194px) and (orientation: portrait) {
   #talent-section {
@@ -2151,3 +2158,26 @@ img {
 }
 
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  #talent-section {
+    background: none !important;
+    background-color: black !important;
+    margin-top:  5200px   !important; /* Adjusted for portrait mode */
+  }
+}
+
+@media screen and (min-width: 853px) and (max-width: 1280px) {
+  #talent-section {
+    background: none !important;
+    background-color: black !important;
+    margin-top:  300px   !important; /* Adjusted for portrait mode */
+  }
+}
+
+@media screen and (min-width: 334px) and (max-width: 882px) {
+  #talent-section {
+    background: none !important;
+    background-color: black !important;
+    margin-top:  1200px   !important; /* Adjusted for portrait mode */
+  }
+}
