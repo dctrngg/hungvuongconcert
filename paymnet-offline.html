@@ -178,13 +178,16 @@
         // payment method
         const paymentMethodSelect = document.getElementById("payment-method");
         const transferSection = document.getElementById("transfer-section");
+        const bankingDetail = document.getElementById("banking-detail");
 
         paymentMethodSelect.addEventListener("change", function () {
             if (this.value === "transfer") {
                 transferSection.style.display = "block";
+                bankingDetail.style.display = "block";
                 document.getElementById("image").required = true;
             } else {
                 transferSection.style.display = "none";
+                bankingDetail.style.display = "none";
                 document.getElementById("image").required = false;
             }
         });
