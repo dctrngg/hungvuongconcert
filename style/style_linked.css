@@ -2179,7 +2179,9 @@ img {
   padding-top: 30px;
   padding-left: 30px;
   display: flex;
-  justify-content: flex-start;
+  align-items: center; /* Canh giữa theo chiều dọc */
+  justify-content: center; /* Căn lề trái */
+  gap: 15px; /* Khoảng cách giữa các phần tử */
 }
 
 .ntt-title p {
@@ -2188,4 +2190,13 @@ img {
   background: linear-gradient(to right, #FB6353, #BF91F1, #0066FF, #000642);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin: 0;
+
+}
+
+.ntt-title .line {
+  flex-grow: 1; /* Đường kẻ sẽ tự động kéo dài để lấp đầy không gian trống */
+  border: none;
+  border-top: 1px solid #ccc; /* Màu và độ dày đường kẻ */
+  margin: 0;
 }
