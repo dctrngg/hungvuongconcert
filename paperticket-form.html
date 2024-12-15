@@ -97,7 +97,8 @@
 
                 <label for="referrer" class="form-label">Người giới thiệu</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="referrer" name="referrer" placeholder="Nếu không có, vui lòng bỏ qua." />
+                    <input type="text" class="form-control" id="referrer" name="referrer"
+                        placeholder="Nếu không có, vui lòng bỏ qua." />
                 </div>
 
 
@@ -231,6 +232,13 @@
                 showPopup("Vui lòng nhập email hợp lệ.");
                 return;
             }
+
+            if (!isValidFacebookLink(linkfb)) {
+                showPopup("Vui lòng nhập link Facebook hợp lệ.");
+                event.preventDefault();
+                return;
+            }
+
 
 
             // Calculate total price
@@ -383,8 +391,12 @@
             popup.style.display = "none";
         }
 
-
         document.getElementById("popup-close").addEventListener("click", closePopup);
+        
+        function isValidFacebookLink(link) {
+            const facebookLinkRegex = /^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9.]+\/?$/;
+            return facebookLinkRegex.test(link);
+        }
     </script>
 </body>
 

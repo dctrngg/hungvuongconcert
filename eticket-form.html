@@ -201,6 +201,12 @@
                 return;
             }
 
+            if (!isValidFacebookLink(linkfb)) {
+                showPopup("Vui lòng nhập link Facebook hợp lệ.");
+                event.preventDefault();
+                return;
+            }
+
             const totalPrice = ticketPrice * quantity;
             const formattedPrice = totalPrice.toLocaleString('vi-VN');  
             const message = `Bạn xác nhận thanh toán: ${formattedPrice}đ. Bạn có muốn tiếp tục?`;
@@ -300,7 +306,11 @@
         }
 
         document.getElementById("popup-close").addEventListener("click", closePopup);
-
+        
+        function isValidFacebookLink(link) {
+            const facebookLinkRegex = /^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9.]+\/?$/;
+            return facebookLinkRegex.test(link);
+        }
 
     </script>
 
