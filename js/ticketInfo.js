@@ -19,7 +19,7 @@ function fetchData(searchValue) {
                 const phone = rowData[1].v || "Không có thông tin";
                 const email = rowData[2].v || "Không có thông tin";
 
-                output.innerHTML = `<h3><i>BẠN ĐÃ LÀ MỘT PHẦN CỦA HVC!</i></h3>
+                output.innerHTML = `<h3><i>BẠN ĐÃ LÀ MỘT PHẦN CỦA CONCERT UNFOLD NĂM NAY!</i></h3>
                                     <p><strong>Họ và Tên:</strong> ${customer}</p>
                                     <p><strong>Số điện thoại:</strong> 0${phone}</p>
                                     <p><strong>Email:</strong> ${email}</p>`;
