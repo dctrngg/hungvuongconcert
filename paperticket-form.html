@@ -394,9 +394,10 @@
         document.getElementById("popup-close").addEventListener("click", closePopup);
 
         function isValidFacebookLink(link) {
-            const facebookLinkRegex = /^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9.]+\/?$/;
+            const facebookLinkRegex = /^https?:\/\/(www\.)?facebook\.com\/.+$/;
             return facebookLinkRegex.test(link);
         }
+
     </script>
 </body>
 

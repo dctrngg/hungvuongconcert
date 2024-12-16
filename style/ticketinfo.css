@@ -206,6 +206,10 @@ body {
         align-items: unset;
     }
 
+    body {
+        background-position: calc(0% + 50px) center; /* Dịch qua phải 50px */
+    }
+
     .container {
         flex-direction: column;
         width: 100%;
