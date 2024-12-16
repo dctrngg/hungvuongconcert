@@ -19,9 +19,10 @@ function fetchData(searchValue) {
                 const phone = rowData[1].v || "Không có thông tin";
                 const email = rowData[2].v || "Không có thông tin";
 
-                output.innerHTML = `<p>Họ và Tên: ${customer}</p>
-                                    <p>Số điện thoại: ${phone}</p>
-                                    <p>Email: ${email}</p>`;
+                output.innerHTML = `<h3><i>BẠN ĐÃ LÀ MỘT PHẦN CỦA HVC!</i></h3>
+                                    <p><strong>Họ và Tên:</strong> ${customer}</p>
+                                    <p><strong>Số điện thoại:</strong> 0${phone}</p>
+                                    <p><strong>Email:</strong> ${email}</p>`;
 
             } catch (error) {
                 output.innerHTML = `<p>${error}</p>`;
