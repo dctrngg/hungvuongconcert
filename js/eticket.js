@@ -10,20 +10,18 @@ function updateTotalDue() {
     const quantity = parseInt(quantityInput.value);
     const subtotal = ticketPrice * quantity;
     const totalDue = subtotal;
-
-    // Update the displayed values
-    const formattedPrice1 = subtotal.toLocaleString('vi-VN');  // Định dạng số theo cách Việt Nam (có dấu chấm)
-    const formattedPrice2 = totalDue.toLocaleString('vi-VN');  // Định dạng số theo cách Việt Nam (có dấu chấm)
+    const formattedPrice1 = subtotal.toLocaleString('vi-VN');  
+    const formattedPrice2 = totalDue.toLocaleString('vi-VN');  
 
     subtotalElement.textContent = `${formattedPrice1} VNĐ`;
     totalDueElement.textContent = `${formattedPrice2} VNĐ`;
-    quantityDisplayElement.textContent = quantity; // Update quantity display
+    quantityDisplayElement.textContent = quantity; 
 }
 
-// Listen for quantity changes
+
 quantityInput.addEventListener("input", updateTotalDue);
 
-// Initialize the total due on page load
+
 updateTotalDue();
 
 function showConfirmedPopup(message) {
@@ -49,7 +47,7 @@ function showConfirmedPopup(message) {
 }
 
 document.getElementById('form').onsubmit = async function (event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); 
 
     const customer = document.getElementById('customer').value;
     const phone = document.getElementById('phone').value;
@@ -57,7 +55,6 @@ document.getElementById('form').onsubmit = async function (event) {
     const linkfb = document.getElementById('linkfb').value;
     const referrer = document.getElementById('referrer') ? document.getElementById('referrer').value : '';
     const quantity = parseInt(document.getElementById('quantity').value, 10);
-    // const note = document.getElementById('note') ? document.getElementById('note').value : '';
     const imageFile = document.getElementById('image') ? document.getElementById('image').files[0] : null;
     const imgbbApiKey = "720f1453f14c2cc6ba0b68214720705f";
     const url = this.action;
@@ -111,7 +108,6 @@ document.getElementById('form').onsubmit = async function (event) {
             formData.append("Facebook", linkfb);
             formData.append("Quantity", quantity);
             formData.append("Referrer", referrer);
-            // formData.append("Note", note);
             formData.append("image", imageFile);
 
             const loadingMessage = `
@@ -122,7 +118,7 @@ document.getElementById('form').onsubmit = async function (event) {
             showPopup(loadingMessage, true, true);
 
             try {
-                // Upload image to imgbb
+
                 const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
                     method: "POST",
                     body: formData
@@ -201,3 +197,17 @@ function isValidFacebookLink(link) {
     const facebookLinkRegex = /^https?:\/\/(www\.)?facebook\.com\/.+$/;
     return facebookLinkRegex.test(link);
 }
+
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+  });
+
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+        (e.ctrlKey && e.key === 'U')) {
+      e.preventDefault();
+      
+    }
+  });

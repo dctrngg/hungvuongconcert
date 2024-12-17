@@ -12,7 +12,7 @@
 
 <body>
     <!-- <div class="output"></div> -->
-    <section class="part1" style = "background-image: url('./images/tuthien.webp'); ">
+    <section class="part1" style="background-image: url('./images/tuthien.webp'); ">
         <div class="overlay"></div> <!-- Lớp phủ overlay -->
         <div class="dark-overlay"></div>
         <div class="container-lg content">
@@ -23,37 +23,44 @@
                     <h1 class=" fw-bold header"> Lời Cảm Ơn</h1>
 
                     <p>
-                        Thay mặt Ban Tổ Chức Hùng Vương Concert, chúng tôi xin gửi lời cảm ơn chân thành đến tất cả các bạn đã tham gia và ủng hộ chương trình. Sự đóng góp của các bạn không chỉ giúp chương trình thành công, 
-                        mà còn mang lại cơ hội giúp đỡ những hoàn cảnh khó khăn, tạo ra sự lan tỏa yêu thương trong cộng đồng.
+                        Thay mặt Ban Tổ Chức Hùng Vương Concert, chúng tôi xin gửi lời cảm ơn chân thành đến tất cả các
+                        bạn đã tham gia và ủng hộ chương trình. Sự đóng góp của các bạn không chỉ giúp chương trình
+                        thành công,
+                        mà còn mang lại cơ hội giúp đỡ những hoàn cảnh khó khăn, tạo ra sự lan tỏa yêu thương trong cộng
+                        đồng.
                     </p>
                     <div class="quote">
                         <div class="card">
-                            <p class="main">"Chúng tôi tin rằng: Thành công của chương trình không chỉ đến từ <strong>sự nỗ lực</strong>
-                                của Ban Tổ Chức mà còn là kết tinh từ<strong> tình yêu thương, sẻ chia và đoàn kết</strong> của tất cả mọi người."</p>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p id="customerName"></p>
-                                        <p id="customerEmail"></p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p id="customerPhone"></p>
-                                        <p id="ticketQuantity"></p>
-                                    </div>
+                            <p class="main">"Chúng tôi tin rằng: Thành công của chương trình không chỉ đến từ <strong>sự
+                                    nỗ lực</strong>
+                                của Ban Tổ Chức mà còn là kết tinh từ<strong> tình yêu thương, sẻ chia và đoàn
+                                    kết</strong> của tất cả mọi người."</p>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p id="customerName"></p>
+                                    <p id="customerEmail"></p>
                                 </div>
+                                <div class="col-sm-6">
+                                    <p id="customerPhone"></p>
+                                    <p id="ticketQuantity"></p>
+                                </div>
+                            </div>
                             <p class="card-footer">Hung Vuong Concert: UNFOLD.</p>
                         </div>
                     </div>
                     <p>Chương trình vừa là món quà tinh thần hấp dẫn sau một mùa học tập căng thẳng cho các bạn trẻ
                         trong khu vực tỉnh Bình Dương và các khu vực lân cận, đồng thời là cánh cửa mở ra vô vàn cơ hội
                         cho các vùng khó khăn, chậm phát triển nói chung và các hộ gia đình, trẻ em khó khăn nói riêng.
-                        Từ sâu thẳm trái tim mình, chúng tôi hy vọng tinh thần này sẽ mãi mãi được duy trì và lan tỏa.</p>
+                        Từ sâu thẳm trái tim mình, chúng tôi hy vọng tinh thần này sẽ mãi mãi được duy trì và lan tỏa.
+                    </p>
                 </div>
                 <div class="col-sm-3">
                 </div>
             </div>
-            <btn class="btn btn-custom" onclick="window.location.href='/index.html';">Go To Homepage <i class="fa fa-arrow-circle-o-right" aria-hidden="true" ></i></btn>
+            <btn class="btn btn-custom" onclick="window.location.href='/index.html';">Go To Homepage <i
+                    class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></btn>
         </div>
-    </section>  
+    </section>
 
 
 
@@ -64,6 +71,22 @@
         document.getElementById('customerEmail').textContent = `Email: ${params.get('email')}`;
         document.getElementById('customerPhone').textContent = `Số điện thoại: ${params.get('phone')}`;
         document.getElementById('ticketQuantity').textContent = `Số lượng vé: ${params.get('quantity')}`;
+
+
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+           
+        });
+
+ 
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+             
+            }
+        });
 
     </script>
 </body>

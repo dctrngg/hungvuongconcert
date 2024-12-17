@@ -397,37 +397,42 @@
                         </div>
                     </div>
                     <div data-w-id="daae5b13-304d-fc2f-0f3c-2689ae3fda09" style="height: auto;" role="listitem"
-                    class="faq-item w-dyn-item">
-                    <div class="ques-div" onclick="toggleAnswer(this)">
-                        <div>Sau khi đặt vé E-Ticket thành công, khoảng bao lâu tôi sẽ nhận được vé qua email?
+                        class="faq-item w-dyn-item">
+                        <div class="ques-div" onclick="toggleAnswer(this)">
+                            <div>Sau khi đặt vé E-Ticket thành công, khoảng bao lâu tôi sẽ nhận được vé qua email?
+                            </div>
+                            <div class="faq-arrow-div rotate">
+                                <div class="w-embed">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="expand_less">
+                                            <path id="vector"
+                                                d="M9.86667 21.2798L8 19.4131L16 11.4131L24 19.4131L22.1333 21.2798L16 15.1464L9.86667 21.2798Z"
+                                                fill="currentColor"></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
-                        <div class="faq-arrow-div rotate">
-                            <div class="w-embed">
-                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g id="expand_less">
-                                        <path id="vector"
-                                            d="M9.86667 21.2798L8 19.4131L16 11.4131L24 19.4131L22.1333 21.2798L16 15.1464L9.86667 21.2798Z"
-                                            fill="currentColor"></path>
-                                    </g>
-                                </svg>
+                        <div class="ans-div">
+                            <div class="w-richtext">
+                                <ul role="list">
+                                    <li>Sau khi đặt vé thành công, bạn sẽ nhận được vé E-Ticket qua email trong vòng 24
+                                        giờ. Trong trường hợp hệ thống xử lý chậm, thời gian nhận vé có thể kéo dài tối
+                                        đa 2 ngày. Nếu quá thời gian trên mà bạn vẫn chưa nhận được vé, vui lòng liên hệ
+                                        ngay với chúng tôi để được hỗ trợ.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="ans-div">
-                        <div class="w-richtext">
-                            <ul role="list">
-                                <li>Sau khi đặt vé thành công, bạn sẽ nhận được vé E-Ticket qua email trong vòng 24 giờ. Trong trường hợp hệ thống xử lý chậm, thời gian nhận vé có thể kéo dài tối đa 2 ngày. Nếu quá thời gian trên mà bạn vẫn chưa nhận được vé, vui lòng liên hệ ngay với chúng tôi để được hỗ trợ.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
     </section>
     <section class="ntt-title">
-        <hr class="line"><p>prOudly Sponsored By </p><hr class="line">
+        <hr class="line">
+        <p>prOudly Sponsored By </p>
+        <hr class="line">
     </section>
     <section class="ntt">
         <!-- <p id="ntt-title">OuR ParTneR</p> -->
@@ -491,7 +496,23 @@
 
             ansDiv.classList.toggle('active');
             arrowDiv.classList.toggle('active');
+
         }
+
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            
+        });
+
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+                
+            }
+        });
     </script>
 
 
