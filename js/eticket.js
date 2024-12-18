@@ -10,12 +10,12 @@ function updateTotalDue() {
     const quantity = parseInt(quantityInput.value);
     const subtotal = ticketPrice * quantity;
     const totalDue = subtotal;
-    const formattedPrice1 = subtotal.toLocaleString('vi-VN');  
-    const formattedPrice2 = totalDue.toLocaleString('vi-VN');  
+    const formattedPrice1 = subtotal.toLocaleString('vi-VN');
+    const formattedPrice2 = totalDue.toLocaleString('vi-VN');
 
     subtotalElement.textContent = `${formattedPrice1} VNĐ`;
     totalDueElement.textContent = `${formattedPrice2} VNĐ`;
-    quantityDisplayElement.textContent = quantity; 
+    quantityDisplayElement.textContent = quantity;
 }
 
 
@@ -47,7 +47,7 @@ function showConfirmedPopup(message) {
 }
 
 document.getElementById('form').onsubmit = async function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const customer = document.getElementById('customer').value;
     const phone = document.getElementById('phone').value;
@@ -82,12 +82,12 @@ document.getElementById('form').onsubmit = async function (event) {
         return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showPopup("Vui lòng nhập email hợp lệ.");
+    const emailValidationResult = validateEmail(email);
+    if (!emailValidationResult.isValid) {
+        showPopup(emailValidationResult.message); 
         return;
     }
-
+    
     if (!isValidFacebookLink(linkfb)) {
         showPopup("Vui lòng nhập link Facebook hợp lệ.");
         event.preventDefault();
@@ -200,14 +200,36 @@ function isValidFacebookLink(link) {
 
 document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
-  });
+});
 
 
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
         (e.ctrlKey && e.key === 'U')) {
-      e.preventDefault();
-      
+        e.preventDefault();
+
     }
-  });
+});
+
+function validateEmail(email) {
+    const commonDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"];
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        return { isValid: false, message: "Vui lòng nhập email hợp lệ." };
+    }
+
+    const domain = email.split('@')[1];
+    if (domain) {
+        if (!commonDomains.includes(domain) && !domain.endsWith('.edu.vn')) {
+            return { isValid: false, message: `Mail của bạn không hợp lệ` };
+        }
+    }
+
+    return { isValid: true, message: "" };
+}
+
+
+
+

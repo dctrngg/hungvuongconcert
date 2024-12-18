@@ -95,9 +95,9 @@ document.getElementById('form').onsubmit = async function (event) {
         return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showPopup("Vui lòng nhập email hợp lệ.");
+    const emailValidationResult = validateEmail(email);
+    if (!emailValidationResult.isValid) {
+        showPopup(emailValidationResult.message); 
         return;
     }
 
@@ -268,14 +268,33 @@ function isValidFacebookLink(link) {
 
 document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
-  });
+});
 
 
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'F12' || 
-        (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
         (e.ctrlKey && e.key === 'U')) {
-      e.preventDefault();
-      
+        e.preventDefault();
+
     }
-  });
+});
+
+function validateEmail(email) {
+    const commonDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"];
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        return { isValid: false, message: "Vui lòng nhập email hợp lệ." };
+    }
+
+    const domain = email.split('@')[1];
+    if (domain) {
+        if (!commonDomains.includes(domain) && !domain.endsWith('.edu.vn')) {
+            return { isValid: false, message: `Mail của bạn không hợp lệ` };
+        }
+    }
+
+    return { isValid: true, message: "" };
+}
+s

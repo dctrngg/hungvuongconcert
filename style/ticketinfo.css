@@ -207,7 +207,7 @@ body {
     }
 
     body {
-        background-position: calc(0% + 50px) center; /* Dịch qua phải 50px */
+        background-position: calc(0% + 20px) center; /* Dịch qua phải 50px */
     }
 
     .container {
