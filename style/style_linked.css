@@ -2179,9 +2179,9 @@ img {
   padding-top: 30px;
   padding-left: 30px;
   display: flex;
-  align-items: center; /* Canh giữa theo chiều dọc */
-  justify-content: center; /* Căn lề trái */
-  gap: 15px; /* Khoảng cách giữa các phần tử */
+  align-items: center; 
+  justify-content: center; 
+  gap: 15px; 
 }
 
 .ntt-title p {
@@ -2191,7 +2191,6 @@ img {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
-
 }
 
 .ntt-title .line {
