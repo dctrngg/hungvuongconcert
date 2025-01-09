@@ -3,23 +3,19 @@ const totalDueElement = document.getElementById("total-due");
 const subtotalElement = document.getElementById("subtotal");
 const quantityDisplayElement = document.getElementById("quantity-display");
 
-const ticketPrice = 320000; // Giá vé
+const ticketPrice = 320000;
 
 function updateTotalDue() {
     const quantity = parseInt(quantityInput.value);
     const subtotal = ticketPrice * quantity;
     const totalDue = subtotal;
 
-    // Update the displayed values
     subtotalElement.textContent = `${subtotal.toLocaleString()} VNĐ`;
     totalDueElement.textContent = `${totalDue.toLocaleString()} VNĐ`;
-    quantityDisplayElement.textContent = quantity; // Update quantity display
+    quantityDisplayElement.textContent = quantity;
 }
 
-// Listen for quantity changes
 quantityInput.addEventListener("input", updateTotalDue);
-
-// Initialize the total due on page load
 updateTotalDue();
 
 function showConfirmedPopup(message) {
@@ -44,7 +40,6 @@ function showConfirmedPopup(message) {
     });
 }
 
-// payment method
 const paymentMethodSelect = document.getElementById("payment-method");
 const transferSection = document.getElementById("transfer-section");
 const bankingDetail = document.getElementById("banking-detail");
@@ -62,7 +57,7 @@ paymentMethodSelect.addEventListener("change", function () {
 });
 
 document.getElementById('form').onsubmit = async function (event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
     console.log("Submit button clicked");
     const customer = document.getElementById('customer').value;
     const phone = document.getElementById('phone').value;
@@ -77,14 +72,22 @@ document.getElementById('form').onsubmit = async function (event) {
     const referrer = document.getElementById('referrer') ? document.getElementById('referrer').value : '';
     const url = this.action;
 
-    // Validation for phone number (must be 10 digits)
+    const currentTime = new Date().toLocaleString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+
     const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(phone)) {
         showPopup("Số điện thoại bao gồm 10 ký tự");
         return;
     }
 
-    // Validation for quantity (must be between 1 and 5)
     if (quantity <= 0 || quantity > 5) {
         showPopup("Bạn chỉ được mua tối đa 5 vé.");
         return;
@@ -107,44 +110,37 @@ document.getElementById('form').onsubmit = async function (event) {
         return;
     }
 
-
-
-    // Calculate total price
     const totalPrice = ticketPrice * quantity;
-    const formattedPrice = totalPrice.toLocaleString('vi-VN');  // Định dạng số theo cách Việt Nam (có dấu chấm)
+    const formattedPrice = totalPrice.toLocaleString('vi-VN');
     const message = `Bạn xác nhận thanh toán: ${formattedPrice}đ. Bạn có muốn tiếp tục?`;
 
-    const result = await showConfirmedPopup(message); // Wait until user confirms
+    const result = await showConfirmedPopup(message);
 
     if (result === 'confirmed') {
+        const formData = new FormData();
+        formData.append("Time", currentTime);
+        formData.append("Customer", customer);
+        formData.append("Phone", phone);
+        formData.append("Email", email);
+        formData.append("Facebook", linkfb);
+        formData.append("Address", address);
+        formData.append("Quantity", quantity);
+        formData.append("Type", type);
+        formData.append("Note", note);
+        formData.append("Referrer", referrer);
+
         if (type === 'transfer') {
             if (imageFile) {
-                const formData = new FormData();
-                formData.append("Customer", customer);
-                formData.append("Phone", phone);
-                formData.append("Email", email);
-                formData.append("Facebook", linkfb);
-                formData.append("Address", address);
-                formData.append("Quantity", quantity);
-                formData.append("Type", type);
                 formData.append("image", imageFile);
-                formData.append("Note", note);
-                formData.append("Referrer", referrer);
-
-                console.log("Nội dung FormData:");
-                for (const pair of formData.entries()) {
-                    console.log(pair[0] + ": " + pair[1]);
-                }
 
                 const loadingMessage = `
-                                    <p>Đang chờ hệ thống xử lý...</p>
-                                    <p>(Có thể mất 5 - 10s)</p>
-                                    <img src="./images/loading.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
-                            `;
+                    <p>Đang chờ hệ thống xử lý...</p>
+                    <p>(Có thể mất 5 - 10s)</p>
+                    <img src="./images/loading.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
+                `;
                 showPopup(loadingMessage, true, true);
 
                 try {
-                    // Upload image to imgbb
                     const imgbbResponse = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbApiKey}`, {
                         method: "POST",
                         body: formData
@@ -156,29 +152,7 @@ document.getElementById('form').onsubmit = async function (event) {
                         const imageUrl = imgbbData.data.url;
                         formData.append("Image", imageUrl);
 
-                        // Submit form data
-                        await fetch(url, {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(response => response.json())
-                            .then(result => {
-                                console.log(result);
-                                const successMessage = `
-                                    <p>Bạn đã đặt vé thành công!</p>
-                                    <img src="./images/success.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
-                            `;
-                                showPopup(successMessage, true, true);
-                                setTimeout(() => {
-                                    window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
-                                }, 3000);
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                showPopup('Error submitting data.');
-                            });
-
-                        document.getElementById('form').reset();
+                        await submitFormData(formData, url, customer, email, phone, quantity);
                     } else {
                         showPopup("Failed to upload image to imgbb.");
                     }
@@ -190,51 +164,43 @@ document.getElementById('form').onsubmit = async function (event) {
                 showPopup("Please select an image to upload.");
             }
         } else {
-            const formData = new FormData();
-            formData.append("Customer", customer);
-            formData.append("Phone", phone);
-            formData.append("Email", email);
-            formData.append("Facebook", linkfb);
-            formData.append("Address", address);
-            formData.append("Quantity", quantity);
-            formData.append("Type", type);
-            formData.append("image", imageFile);
-            formData.append("Note", note);
-            formData.append("Referrer", referrer);
-
             const loadingMessage = `
-                                    <p>Đang chờ hệ thống xử lý...</p>
-                                    <p>(Có thể mất 5 - 10s)</p>
-                                    <img src="./images/loading.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
-                            `;
+                <p>Đang chờ hệ thống xử lý...</p>
+                <p>(Có thể mất 5 - 10s)</p>
+                <img src="./images/loading.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
+            `;
             showPopup(loadingMessage, true, true);
 
-            await fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(result => {
-                    console.log(result);
-                    const successMessage = `
-        <p>Bạn đã đặt vé thành công!</p>
-        <img src="./images/success.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
-    `;
-                    showPopup(successMessage, true, true);
-                    setTimeout(() => {
-                        window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
-                    }, 3000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showPopup('Error submitting data.');
-                });
-
-            document.getElementById('form').reset();
+            await submitFormData(formData, url, customer, email, phone, quantity);
         }
     }
 };
 
+async function submitFormData(formData, url, customer, email, phone, quantity) {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: formData
+        });
+        const result = await response.json();
+        console.log(result);
+        
+        const successMessage = `
+            <p>Bạn đã đặt vé thành công!</p>
+            <img src="./images/success.gif" alt="Success GIF" style="max-width: 100%; max-height: 100px; object-fit: contain;" />
+        `;
+        showPopup(successMessage, true, true);
+        
+        setTimeout(() => {
+            window.location.href = `thanks.html?customer=${encodeURIComponent(customer)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&quantity=${encodeURIComponent(quantity)}`;
+        }, 3000);
+        
+        document.getElementById('form').reset();
+    } catch (error) {
+        console.error('Error:', error);
+        showPopup('Error submitting data.');
+    }
+}
 
 function showPopup(message, isHtml = false, hideCloseButton = false) {
     const popup = document.getElementById("popup");
@@ -288,16 +254,13 @@ document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
 });
 
-
 document.addEventListener('keydown', function (e) {
     if (e.key === 'F12' ||
         (e.ctrlKey && e.shiftKey && e.key === 'I') ||
         (e.ctrlKey && e.key === 'U')) {
         e.preventDefault();
-
     }
 });
-
 
 document.addEventListener('keydown', function (event) {
     const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
