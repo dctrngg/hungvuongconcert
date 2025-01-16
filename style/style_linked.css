@@ -2207,6 +2207,8 @@ img {
   flex-direction: column; /* Đặt các phần tử theo chiều dọc */
   align-items: center;
   justify-items: center;
+  
+  
 }
 
 #mapstagesection p {
