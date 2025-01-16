@@ -2215,9 +2215,12 @@ img {
   font-size: 80px;
   line-height: 100%;
   font-family: 'DFVN 36daysoftype', sans-serif;
-  background: linear-gradient(to right, #1DFFA2, #FFFF5F, #ED81CF);
+  /* background: linear-gradient(to right, #1DFFA2, #FFFF5F, #ED81CF);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
+  background: linear-gradient(to right, #1DFFA2, #FFFF5F, #ED81CF);
+  color: black;
+  padding: 20px;
   margin: 0;
 }
 
