@@ -2199,3 +2199,61 @@ img {
   border-top: 1px solid #ccc; /* Màu và độ dày đường kẻ */
   margin: 0;
 }
+
+/* map stage */
+#mapstagesection {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column; /* Đặt các phần tử theo chiều dọc */
+  align-items: center;
+  justify-items: center;
+}
+
+#mapstagesection p {
+  font-size: 80px;
+  line-height: 100%;
+  font-family: 'DFVN 36daysoftype', sans-serif;
+  background: linear-gradient(to right, #1DFFA2, #FFFF5F, #ED81CF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+#mapstagesection img {
+  padding: 50px;
+  height: 800px;
+  width: auto;
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  #mapstagesection p {
+    font-size: 50px;
+  }
+
+  #mapstagesection img {
+    height: 600px;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 480px) {
+  #mapstagesection p {
+    font-size: 30px;
+  }
+
+  #mapstagesection img {
+    height: 400px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 479px) {
+  #mapstagesection p {
+    font-size: 25px;
+    text-align: center;
+  }
+
+  #mapstagesection img {
+    height: 400px; 
+    padding: 10px;
+  }
+}
