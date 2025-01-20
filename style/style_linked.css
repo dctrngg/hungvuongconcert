@@ -1984,7 +1984,8 @@ img {
 
 .content-social {
   position: relative;
-  bottom: 50px;
+  bottom: 10px;
+  /* bottom: 50px; */
 }
 
 .footer p {
